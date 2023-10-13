@@ -1,9 +1,8 @@
-
 #include "GCP_GFX_Framework.h"
-
-
-
-
+#include "RayTracer.h"
+#include "Ray.h"
+#include "Sphere.h"
+#include "Camera.h"
 
 int main(int argc, char* argv[])
 {
@@ -20,25 +19,28 @@ int main(int argc, char* argv[])
 	}
 
 
+	glm::vec3 pos = glm::vec3(winSize.x / 2, winSize.y / 2, -60);
+	glm::vec3 colour = glm::vec3(1.0f, 0.0f, 0.0f);
+	float radius = 50;
+	Sphere sphere = Sphere(pos, colour, radius);
 
+	for (int i = 0; i < winSize.x; i++)
+	{
+		for (int j = 0; j < winSize.y; j++)
+		{
+			Ray ray = Ray(glm::vec3(i, j, 0), glm::vec3(0, 0, -1));
 
-	// Preparing a position to draw a pixel
-	glm::ivec2 pixelPosition = winSize / 2;
+			finalIntersection info;
+			info = sphere.rayIntersect(ray);
 
-	// Preparing a colour to draw
-	// Colours are RGB, each value ranges between 0 and 1
-	glm::vec3 pixelColour(1, 0, 0);
+			if (info.hasIntersected)
+			{
+				// Draws a single pixel
+				_myFramework.DrawPixel(glm::ivec2(i, j), sphere.shade(info.intersectionPos));
+			}
 
-
-	// Sets all pixels the same colour
-	_myFramework.SetAllPixels( glm::vec3(0.1f,0.1f,0.3f) );
-
-	// Draws a single pixel
-	_myFramework.DrawPixel(pixelPosition, pixelColour);
-
-
-
-
+		}
+	}
 
 	// Pushes the framebuffer to OpenGL and renders to screen
 	// Also contains an event loop that keeps the window going until it's closed
