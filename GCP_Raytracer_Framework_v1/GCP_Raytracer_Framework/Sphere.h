@@ -4,6 +4,7 @@
 struct finalIntersection
 {
 	glm::vec3 intersectionPos;
+	glm::vec3 surfaceNormal;
 	bool hasIntersected;
 };
 
@@ -20,7 +21,7 @@ public:
 	bool hasIntersection(float _distance);
 	float shortestDistance(Ray _Ray);
 	glm::vec3 rayClosestIntersectionPoint(Ray _ray);
-	glm::vec3 shade(glm::vec3 _intersection);
+	glm::vec3 shade(glm::vec3 intersection, glm::vec3 _normal);
 	glm::vec3 getNormal(glm::vec3 _point);
 };
 

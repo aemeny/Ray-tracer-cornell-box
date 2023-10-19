@@ -25,7 +25,7 @@ Ray Camera::getRay(glm::ivec2 windowPos)
 	output.y = mapping(windowPos.y, 0, m_windowHeight, 1, -1);
 
 	glm::vec4 nearPlane = { output.x, output.y, -1, 1 }; 
-	glm::vec4 farPlane = { output.x, output.y, 1, -1 };
+	glm::vec4 farPlane = { output.x, output.y, 1, 1 };
 
 	glm::vec4 transformNear = m_transformationMatrix * nearPlane; 
 	glm::vec4 transformFar = m_transformationMatrix * farPlane; 

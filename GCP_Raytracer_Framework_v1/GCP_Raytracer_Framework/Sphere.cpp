@@ -36,6 +36,7 @@ finalIntersection Sphere::rayIntersect(Ray _ray)
 		info.hasIntersected = true;
 		glm::vec3 intersectionPoint = rayClosestIntersectionPoint(_ray);
 		info.intersectionPos = intersectionPoint;
+		info.surfaceNormal = getNormal(intersectionPoint);
 		return info;
 	}
 	else
@@ -85,13 +86,14 @@ glm::vec3 Sphere::findClosestPoint(Ray _ray, glm::vec3 _p)
 	return x;
 }
 
-glm::vec3 Sphere::shade(glm::vec3 intersection)
+glm::vec3 Sphere::shade(glm::vec3 intersection, glm::vec3 _normal)
 {
-	return colour;
+	float diffuse = 0.6f;
+	return glm::dot(glm::vec3(-1.0f, -1.5f, 1.0f), _normal) * colour * diffuse;
 }
 
 
-glm::vec3 Sphere::getNormal(glm::vec3 _point)
+glm::vec3 Sphere::getNormal(glm::vec3 _intersectPoint)
 {
-	return glm::vec3();
+	return glm::normalize(_intersectPoint - position);
 }
