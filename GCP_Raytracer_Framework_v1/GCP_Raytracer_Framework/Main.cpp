@@ -19,16 +19,18 @@ int main(int argc, char* argv[])
 	}
 
 
-	glm::vec3 pos = glm::vec3(winSize.x / 2, winSize.y / 2, -60);
+	glm::vec3 pos = glm::vec3(0.0f, 0.0f, -3.0f);
 	glm::vec3 colour = glm::vec3(1.0f, 0.0f, 0.0f);
-	float radius = 50;
+	float radius = 1.0f;
 	Sphere sphere = Sphere(pos, colour, radius);
+	Camera camera = Camera(480, 640, 90);
 
 	for (int i = 0; i < winSize.x; i++)
 	{
 		for (int j = 0; j < winSize.y; j++)
 		{
-			Ray ray = Ray(glm::vec3(i, j, 0), glm::vec3(0, 0, -1));
+			glm::ivec2 pos = { i, j };
+			Ray ray = camera.getRay(pos);
 
 			finalIntersection info;
 			info = sphere.rayIntersect(ray);

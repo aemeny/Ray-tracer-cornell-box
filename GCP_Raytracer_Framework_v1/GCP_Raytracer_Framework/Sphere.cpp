@@ -87,8 +87,7 @@ glm::vec3 Sphere::findClosestPoint(Ray _ray, glm::vec3 _p)
 
 glm::vec3 Sphere::shade(glm::vec3 intersection)
 {
-	//Return as red for example
-	return glm::vec3(1.0, 0.0, 0.0);
+	return colour;
 }
 
 
