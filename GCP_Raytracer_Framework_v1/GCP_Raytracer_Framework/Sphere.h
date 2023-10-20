@@ -3,9 +3,9 @@
 
 struct finalIntersection
 {
-	glm::vec3 intersectionPos;
-	glm::vec3 surfaceNormal;
-	bool hasIntersected;
+	glm::vec3 intersectionPos{ 0,0,0 };
+	glm::vec3 surfaceNormal{ 0,0,0 };
+	bool hasIntersected{ false };
 };
 
 class Sphere
@@ -17,11 +17,8 @@ public:
 
 	Sphere(glm::vec3 _position, glm::vec3 _colour, float _radius);
 	finalIntersection rayIntersect(Ray _ray);
-	glm::vec3 findClosestPoint(Ray _Ray, glm::vec3 _p);
-	bool hasIntersection(float _distance);
+	glm::vec3 findClosestPoint(Ray _Ray, float _x);
 	float shortestDistance(Ray _Ray);
-	glm::vec3 rayClosestIntersectionPoint(Ray _ray);
-	glm::vec3 shade(glm::vec3 intersection, glm::vec3 _normal);
 	glm::vec3 getNormal(glm::vec3 _point);
 };
 

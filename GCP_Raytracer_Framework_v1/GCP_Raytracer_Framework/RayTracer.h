@@ -6,8 +6,7 @@ class RayTracer
 private:
 	std::vector<Sphere*> m_objsInScene;
 
-	glm::vec3 totalIllumination(finalIntersection _info);
-	glm::vec3 specularLighting(finalIntersection _info);
+	glm::vec3 specularLighting(finalIntersection _info, glm::vec3 _lightDir);
 
 	float facing(glm::vec3 _surfNorm, glm::vec3 _lightDir);
 

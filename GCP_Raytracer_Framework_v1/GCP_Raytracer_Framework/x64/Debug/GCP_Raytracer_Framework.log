@@ -1,4 +1,12 @@
-﻿  RayTracer.cpp
-H:\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(9,29): warning C4305: 'initializing': truncation from '__int64' to 'float'
-H:\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(25,18): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  GCP_Raytracer_Framework.vcxproj -> H:\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe
+﻿  Main.cpp
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(44,43): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(44,32): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+  GCP_Raytracer_Framework.vcxproj -> C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe

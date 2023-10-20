@@ -38,7 +38,9 @@ Ray Camera::getRay(glm::ivec2 windowPos)
 
 	glm::vec3 direction = farProjection - nearProjection; 
 
-	Ray ray = Ray(nearProjection, glm::normalize(direction)); 
+	//Ray ray = Ray(nearProjection, glm::normalize(direction)); 
+
+	Ray ray = Ray(glm::vec3(windowPos.x, windowPos.y ,0), glm::vec3(0,0,-1));
 
 	return ray;
 }
