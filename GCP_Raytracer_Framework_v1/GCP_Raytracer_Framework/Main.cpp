@@ -20,13 +20,14 @@ int main(int argc, char* argv[])
 	}
 
 
-
-	glm::vec3 pos = glm::vec3(0.0f, 0.0f, -2.0f);
-	glm::vec3 pos2 = glm::vec3(0.0f, 1.0f, -3.0f);
-	glm::vec3 colour = glm::vec3(1.0f, 0.0f, 1.0f);
-	glm::vec3 colour2 = glm::vec3(1.0f, 1.0f, 0.0f);
 	float radius = 1.0f;
+
+	glm::vec3 pos = glm::vec3(0.0f, -1.0f, -3.0f);
+	glm::vec3 colour = glm::vec3(1.0f, 0.0f, 1.0f);
 	Sphere sphere = Sphere(pos, colour, radius);
+
+	glm::vec3 pos2 = glm::vec3(0.0f, 1.0f, -3.0f);
+	glm::vec3 colour2 = glm::vec3(1.0f, 1.0f, 0.0f);
 	Sphere sphere2 = Sphere(pos2, colour2, radius);
 
 	Camera camera = Camera(winSize.y, winSize.x, 90);
