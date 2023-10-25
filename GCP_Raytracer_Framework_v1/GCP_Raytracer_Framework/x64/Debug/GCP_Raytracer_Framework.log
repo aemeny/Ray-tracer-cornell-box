@@ -1,4 +1,15 @@
-﻿  Main.cpp
+﻿  Camera.cpp
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Camera.cpp(24,30): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Camera.cpp(25,30): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+  Main.cpp
 C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(44,43): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
@@ -9,4 +20,5 @@ C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP
           [
               T=int
           ]
-  GCP_Raytracer_Framework.vcxproj -> C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe
+  Generating Code...
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp : fatal  error C1090: PDB API call failed, error code '3': C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\x64\Debug\vc143.pdb
