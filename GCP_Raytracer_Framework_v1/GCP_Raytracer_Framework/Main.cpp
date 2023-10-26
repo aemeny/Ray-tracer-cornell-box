@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 	//glm::vec3 pos = glm::vec3(1.0f, 1.0f, -4.0f);
 	glm::vec3 pos = glm::vec3(175.0f, 175.0f, -120.0f);
 	glm::vec3 colour = glm::vec3(1.0f, 0.0f, 1.0f);
-	Sphere sphere = Sphere(pos, colour, radius);
+	Sphere sphere = Sphere(pos, colour, radius + 15);
 
 	//glm::vec3 pos2 = glm::vec3(-1.0f, -1.0f, -4.0f);
 	glm::vec3 pos2 = glm::vec3(175.0f, 425.0f, -120.0f);
@@ -38,9 +38,9 @@ int main(int argc, char* argv[])
 	Sphere sphere3 = Sphere(pos3, colour3, radius);
 
 	//glm::vec3 pos4 = glm::vec3(1.0f, -1.0f, -4.0f);
-	glm::vec3 pos4 = glm::vec3(425.0f, 425.0f, -120.0f);
+	glm::vec3 pos4 = glm::vec3(425.0f, 350.0f, -120.0f);
 	glm::vec3 colour4 = glm::vec3(0.5f, 1.0f, 0.5f);
-	Sphere sphere4 = Sphere(pos4, colour4, radius);
+	Sphere sphere4 = Sphere(pos4, colour4, radius -40);
 
 	Camera camera = Camera(winSize.y, winSize.x, 60);
 	RayTracer rayTracer;
@@ -66,10 +66,10 @@ int main(int argc, char* argv[])
 					for (int s = 0; s < sampleSize; s++)
 					{
 						//Gets a random point between 0 - 1
-						float r1 = x + (float)rand() / (float)RAND_MAX;
-						float r2 = y + (float)rand() / (float)RAND_MAX;
+						float r1 = (float)x + (float)rand() / (float)RAND_MAX;
+						float r2 = (float)y + (float)rand() / (float)RAND_MAX;
 
-						glm::ivec2 pos = { r1, r2 };
+						glm::vec2 pos = { r1, r2 };
 						Ray ray = camera.getRay(pos);
 
 						//On intersect add colour for antialiasing

@@ -8,7 +8,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray)
 	int whichObj = 0;
 	bool hasIntersected = false;
 
-	for (size_t ei = 0; ei < m_objsInScene.size(); ei++)
+	for (int ei = 0; ei < m_objsInScene.size(); ei++)
 	{
 		finalIntersection info = m_objsInScene.at(ei)->rayIntersect(_ray);
 
@@ -28,10 +28,25 @@ glm::vec3 RayTracer::traceRay(Ray _ray)
 
 	if (hasIntersected)
 	{
-		glm::vec3 lightDir{ 1.0f, 1.5f, 2.0f };
-		glm::vec3 diffuse{ 0.3f };
+		glm::vec3 lightPos{ 600.0f, 600.0f, -120.0f };
+		glm::vec3 lightDir = glm::normalize(lightPos - finalInfo.intersectionPos);
+		
+		Ray ray = Ray(finalInfo.intersectionPos, lightDir);
+		for (int i = 0; i < m_objsInScene.size(); i++)
+		{
+			if (i == whichObj)
+				continue;
+
+			finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
+			if (info.hasIntersected)
+			{
+				return glm::vec3(0.0f, 0.0f, 0.0f);
+			}
+		}
+
+		glm::vec3 diffuse{ 0.9f };
 		glm::vec3 shade = glm::dot(lightDir, finalInfo.surfaceNormal) * m_objsInScene.at(whichObj)->colour * diffuse;
-		shade += specularLighting(finalInfo, lightDir);
+		shade += specularLighting(finalInfo, lightDir, _ray);
 
 		shade.x = glm::min(shade.x, 1.0f);
 		shade.y = glm::min(shade.y, 1.0f);
@@ -48,10 +63,10 @@ void RayTracer::addObject(Sphere* _obj)
 	m_objsInScene.push_back(_obj);
 }
 
-glm::vec3 RayTracer::specularLighting(finalIntersection _info, glm::vec3 _lightDir)
+glm::vec3 RayTracer::specularLighting(finalIntersection _info, glm::vec3 _lightDir, Ray _ray)
 {
-	glm::vec3 eyeDirection = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 halfVec = glm::normalize(_lightDir + eyeDirection);
+	glm::vec3 eyeDir = _ray.direction;
+	glm::vec3 halfVec = glm::normalize(_lightDir - eyeDir);
 
 	glm::vec3 lightColour{ 1.0f };
 	float shininess = 40.0f;

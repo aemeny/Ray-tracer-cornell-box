@@ -1,12 +1,3 @@
-﻿  Main.cpp
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(45,43): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(45,32): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-LINK : fatal error LNK1168: cannot open \\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe for writing
+﻿  RayTracer.cpp
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(7,17): warning C4305: 'initializing': truncation from '__int64' to 'float'
+  GCP_Raytracer_Framework.vcxproj -> \\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe

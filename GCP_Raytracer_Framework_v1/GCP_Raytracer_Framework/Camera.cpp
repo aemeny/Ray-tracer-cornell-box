@@ -17,7 +17,7 @@ Camera::Camera(float _height, float _width, float _FOV)
 	m_transformationMatrix = m_inverseViewMatrix * m_inverseProjectionMatrix;
 }
 
-Ray Camera::getRay(glm::ivec2 windowPos)
+Ray Camera::getRay(glm::vec2 windowPos)
 {
 	glm::vec2 output;
 

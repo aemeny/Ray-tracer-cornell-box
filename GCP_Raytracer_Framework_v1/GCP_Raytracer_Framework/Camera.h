@@ -14,7 +14,7 @@ private:
 
 public:
 	Camera(float _height, float _width, float _FOV);
-	Ray getRay(glm::ivec2 windowPos);
+	Ray getRay(glm::vec2 windowPos);
 	float mapping(float xold, float xistart, float xiend, float xostart, float xoend);
 };
 
