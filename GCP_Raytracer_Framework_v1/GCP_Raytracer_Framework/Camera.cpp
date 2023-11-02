@@ -19,7 +19,7 @@ Camera::Camera(float _height, float _width, float _FOV)
 
 Ray Camera::getRay(glm::vec2 windowPos)
 {
-	glm::vec2 output;
+	/*glm::vec2 output;
 
 	output.x = mapping(windowPos.x, 0, m_windowWidth, -1, 1);
 	output.y = mapping(windowPos.y, 0, m_windowHeight, 1, -1);
@@ -38,7 +38,7 @@ Ray Camera::getRay(glm::vec2 windowPos)
 
 	glm::vec3 direction = farProjection - nearProjection; 
 
-	//Ray ray = Ray(nearProjection, glm::normalize(direction)); 
+	Ray ray = Ray(nearProjection, glm::normalize(direction)); */
 
 	Ray ray = Ray(glm::vec3(windowPos.x, windowPos.y ,0), glm::vec3(0,0,-1));
 

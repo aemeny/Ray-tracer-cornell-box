@@ -2,39 +2,19 @@
 
 glm::vec3 RayTracer::traceRay(Ray _ray)
 {
-	finalIntersection finalInfo;
-	glm::vec3 closestPoint{ 0 };
-	float distance = 9999999999;
-	int whichObj = 0;
-	bool hasIntersected = false;
 
-	for (int ei = 0; ei < m_objsInScene.size(); ei++)
+	finalIntersection finalInfo = findClosestObject(_ray);
+
+	if (finalInfo.hasIntersected)
 	{
-		finalIntersection info = m_objsInScene.at(ei)->rayIntersect(_ray);
-
-		if (info.hasIntersected)
-		{
-			hasIntersected = true;
-
-			if (glm::distance(_ray.origin, info.intersectionPos) < distance)
-			{
-				distance = glm::distance(_ray.origin, info.intersectionPos);
-				closestPoint = info.intersectionPos;
-				whichObj = ei;
-				finalInfo = info;
-			}
-		}
-	}
-
-	if (hasIntersected)
-	{
-		glm::vec3 lightPos{ 600.0f, 600.0f, -120.0f };
+		//look for shadows and return black if in shadow
+		glm::vec3 lightPos{ 300.0f, 300.0f, 150.0f };
 		glm::vec3 lightDir = glm::normalize(lightPos - finalInfo.intersectionPos);
 		
 		Ray ray = Ray(finalInfo.intersectionPos, lightDir);
 		for (int i = 0; i < m_objsInScene.size(); i++)
 		{
-			if (i == whichObj)
+			if (i == finalInfo.objIndex)
 				continue;
 
 			finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
@@ -44,9 +24,14 @@ glm::vec3 RayTracer::traceRay(Ray _ray)
 			}
 		}
 
+		//calculate first ray intersect colour
 		glm::vec3 diffuse{ 0.9f };
-		glm::vec3 shade = glm::dot(lightDir, finalInfo.surfaceNormal) * m_objsInScene.at(whichObj)->colour * diffuse;
+		glm::vec3 reflectionColour = reflectionLighting(finalInfo, _ray);
+
+		glm::vec3 shade = glm::dot(lightDir, finalInfo.surfaceNormal) * (m_objsInScene.at(finalInfo.objIndex)->colour + reflectionColour) * diffuse;
+		
 		shade += specularLighting(finalInfo, lightDir, _ray);
+		//shade *= reflectionColour;
 
 		shade.x = glm::min(shade.x, 1.0f);
 		shade.y = glm::min(shade.y, 1.0f);
@@ -61,6 +46,54 @@ glm::vec3 RayTracer::traceRay(Ray _ray)
 void RayTracer::addObject(Sphere* _obj)
 {
 	m_objsInScene.push_back(_obj);
+}
+
+finalIntersection RayTracer::findClosestObject(Ray _ray)
+{
+	finalIntersection finalInfo;
+	glm::vec3 closestPoint{ 0 };
+	float distance = 9999999999;
+	int objIndex = 0;
+	bool checkIntersect = false;
+
+	for (int ei = 0; ei < m_objsInScene.size(); ei++)
+	{
+		finalIntersection info = m_objsInScene.at(ei)->rayIntersect(_ray);
+
+		if (info.hasIntersected)
+		{
+			checkIntersect = true;
+
+			if (glm::distance(_ray.origin, info.intersectionPos) < distance)
+			{
+				distance = glm::distance(_ray.origin, info.intersectionPos);
+				closestPoint = info.intersectionPos;
+				objIndex = ei;
+				finalInfo = info;
+			}
+		}
+	}
+
+	finalInfo.objIndex = objIndex;
+	finalInfo.hasIntersected = checkIntersect;
+
+	return finalInfo;
+}
+
+glm::vec3 RayTracer::reflectionLighting(finalIntersection _info, Ray _oldRay)
+{
+	glm::vec3 rayDirection = _oldRay.direction - (2.0f * _info.surfaceNormal * glm::dot(_oldRay.direction, _info.surfaceNormal));
+	Ray ray = Ray(_info.intersectionPos, rayDirection);
+
+	finalIntersection info = findClosestObject(ray);
+
+	if (info.hasIntersected)
+	{
+		glm::vec3 shade = m_objsInScene.at(info.objIndex)->colour;
+		return (shade * 1.0f);
+	}
+	else
+		return glm::vec3(0);
 }
 
 glm::vec3 RayTracer::specularLighting(finalIntersection _info, glm::vec3 _lightDir, Ray _ray)

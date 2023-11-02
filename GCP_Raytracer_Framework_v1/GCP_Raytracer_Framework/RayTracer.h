@@ -11,8 +11,15 @@ private:
 
 	float facing(glm::vec3 _surfNorm, glm::vec3 _lightDir);
 
+	glm::vec3 reflectionLighting(finalIntersection _info, Ray _oldRay);
+
+	finalIntersection findClosestObject(Ray _ray);
+
 public:
 	glm::vec3 traceRay(Ray _ray);
 	void addObject(Sphere* _obj);
 };
+
+
+
 

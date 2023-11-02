@@ -24,22 +24,22 @@ int main(int argc, char* argv[])
 
 	//glm::vec3 pos = glm::vec3(1.0f, 1.0f, -4.0f);
 	glm::vec3 pos = glm::vec3(175.0f, 175.0f, -120.0f);
-	glm::vec3 colour = glm::vec3(1.0f, 0.0f, 1.0f);
+	glm::vec3 colour = glm::vec3(1.0f, 1.0f, 1.0f);
 	Sphere sphere = Sphere(pos, colour, radius + 15);
 
 	//glm::vec3 pos2 = glm::vec3(-1.0f, -1.0f, -4.0f);
 	glm::vec3 pos2 = glm::vec3(175.0f, 425.0f, -120.0f);
-	glm::vec3 colour2 = glm::vec3(0.0f, 1.0f, 1.0f);
+	glm::vec3 colour2 = glm::vec3(0.0f, 0.0f, 1.0f);
 	Sphere sphere2 = Sphere(pos2, colour2, radius);
 
 	//glm::vec3 pos3 = glm::vec3(-1.0f, 1.0f, -4.0f);
 	glm::vec3 pos3 = glm::vec3(425.0f, 175.0f, -120.0f);
-	glm::vec3 colour3 = glm::vec3(1.0f, 1.0f, 0.0f);
+	glm::vec3 colour3 = glm::vec3(1.0f, 0.0f, 0.0f);
 	Sphere sphere3 = Sphere(pos3, colour3, radius);
 
 	//glm::vec3 pos4 = glm::vec3(1.0f, -1.0f, -4.0f);
 	glm::vec3 pos4 = glm::vec3(425.0f, 350.0f, -120.0f);
-	glm::vec3 colour4 = glm::vec3(0.5f, 1.0f, 0.5f);
+	glm::vec3 colour4 = glm::vec3(0.0f, 1.0f, 0.0f);
 	Sphere sphere4 = Sphere(pos4, colour4, radius -40);
 
 	Camera camera = Camera(winSize.y, winSize.x, 60);
