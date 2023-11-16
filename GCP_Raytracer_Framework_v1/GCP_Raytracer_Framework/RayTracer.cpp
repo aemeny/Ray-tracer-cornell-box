@@ -82,18 +82,28 @@ finalIntersection RayTracer::findClosestObject(Ray _ray)
 
 glm::vec3 RayTracer::reflectionLighting(finalIntersection _info, Ray _oldRay)
 {
+	int reflectionBounces = 3;
+	glm::vec3 finalShade(0);
+
 	glm::vec3 rayDirection = _oldRay.direction - (2.0f * _info.surfaceNormal * glm::dot(_oldRay.direction, _info.surfaceNormal));
 	Ray ray = Ray(_info.intersectionPos, rayDirection);
 
-	finalIntersection info = findClosestObject(ray);
-
-	if (info.hasIntersected)
+	for (int i = 0; i < reflectionBounces; i++)
 	{
-		glm::vec3 shade = m_objsInScene.at(info.objIndex)->colour;
-		return (shade * 1.0f);
+		finalIntersection info = findClosestObject(ray);
+
+		if (info.hasIntersected)
+		{
+			finalShade += (m_objsInScene.at(info.objIndex)->colour * 0.4f);
+
+			rayDirection = ray.direction - (2.0f * info.surfaceNormal * glm::dot(ray.direction, info.surfaceNormal));
+			ray = Ray(info.intersectionPos, rayDirection);
+		}
+		else
+			break;
 	}
-	else
-		return glm::vec3(0);
+
+	return finalShade;
 }
 
 glm::vec3 RayTracer::specularLighting(finalIntersection _info, glm::vec3 _lightDir, Ray _ray)
