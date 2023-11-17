@@ -15,6 +15,8 @@ private:
 
 	finalIntersection findClosestObject(Ray _ray);
 
+	bool inShadowCheck(finalIntersection _info, glm::vec3 _lightDir);
+
 public:
 	glm::vec3 traceRay(Ray _ray);
 	void addObject(Sphere* _obj);

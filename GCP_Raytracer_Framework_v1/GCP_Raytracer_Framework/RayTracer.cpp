@@ -8,21 +8,11 @@ glm::vec3 RayTracer::traceRay(Ray _ray)
 	if (finalInfo.hasIntersected)
 	{
 		//look for shadows and return black if in shadow
-		glm::vec3 lightPos{ 300.0f, 300.0f, 150.0f };
+		glm::vec3 lightPos{ 600.0f, 600.0f, -80.0f };
 		glm::vec3 lightDir = glm::normalize(lightPos - finalInfo.intersectionPos);
 		
-		Ray ray = Ray(finalInfo.intersectionPos, lightDir);
-		for (int i = 0; i < m_objsInScene.size(); i++)
-		{
-			if (i == finalInfo.objIndex)
-				continue;
-
-			finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
-			if (info.hasIntersected)
-			{
-				return glm::vec3(0.0f, 0.0f, 0.0f);
-			}
-		}
+		if (inShadowCheck(finalInfo, lightDir))
+			return glm::vec3(0);
 
 		//calculate first ray intersect colour
 		glm::vec3 diffuse{ 0.9f };
@@ -80,21 +70,42 @@ finalIntersection RayTracer::findClosestObject(Ray _ray)
 	return finalInfo;
 }
 
+bool RayTracer::inShadowCheck(finalIntersection _info, glm::vec3 _lightDir)
+{
+	Ray ray = Ray(_info.intersectionPos, _lightDir);
+	for (int i = 0; i < m_objsInScene.size(); i++)
+	{
+		if (i == _info.objIndex)
+			continue;
+
+		finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
+		if (info.hasIntersected)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 glm::vec3 RayTracer::reflectionLighting(finalIntersection _info, Ray _oldRay)
 {
-	int reflectionBounces = 3;
+	int reflectionBounces = 5;
 	glm::vec3 finalShade(0);
+	glm::vec3 lightPos{ 600.0f, 600.0f, -80.0f };
 
 	glm::vec3 rayDirection = _oldRay.direction - (2.0f * _info.surfaceNormal * glm::dot(_oldRay.direction, _info.surfaceNormal));
 	Ray ray = Ray(_info.intersectionPos, rayDirection);
 
 	for (int i = 0; i < reflectionBounces; i++)
 	{
-		finalIntersection info = findClosestObject(ray);
+		finalIntersection info = findClosestObject(ray);						 
+																				 
+		if (info.hasIntersected)												 
+		{																		 
+			glm::vec3 lightDir = glm::normalize(lightPos - info.intersectionPos);
 
-		if (info.hasIntersected)
-		{
-			finalShade += (m_objsInScene.at(info.objIndex)->colour * 0.4f);
+			finalShade += ((m_objsInScene.at(info.objIndex)->colour)) / (float)(reflectionBounces + 1);
 
 			rayDirection = ray.direction - (2.0f * info.surfaceNormal * glm::dot(ray.direction, info.surfaceNormal));
 			ray = Ray(info.intersectionPos, rayDirection);
