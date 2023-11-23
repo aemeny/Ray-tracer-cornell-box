@@ -8,7 +8,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray)
 	if (finalInfo.hasIntersected)
 	{
 		//look for shadows and return black if in shadow
-		glm::vec3 lightPos{ 600.0f, 600.0f, -80.0f };
+		glm::vec3 lightPos{ 300.0f, 300.0f, 150.0f };
 		glm::vec3 lightDir = glm::normalize(lightPos - finalInfo.intersectionPos);
 		
 		if (inShadowCheck(finalInfo, lightDir))
@@ -92,7 +92,7 @@ glm::vec3 RayTracer::reflectionLighting(finalIntersection _info, Ray _oldRay)
 {
 	int reflectionBounces = 5;
 	glm::vec3 finalShade(0);
-	glm::vec3 lightPos{ 600.0f, 600.0f, -80.0f };
+	glm::vec3 lightPos{ 300.0f, 300.0f, 150.0f };
 
 	glm::vec3 rayDirection = _oldRay.direction - (2.0f * _info.surfaceNormal * glm::dot(_oldRay.direction, _info.surfaceNormal));
 	Ray ray = Ray(_info.intersectionPos, rayDirection);

@@ -155,6 +155,7 @@
     <ClCompile Include="GCP_GFX_Framework.cpp" />
     <ClCompile Include="glew.c" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Program.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RayTracer.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GCP_GFX_Framework.h" />
+    <ClInclude Include="Program.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RayTracer.h" />
     <ClInclude Include="Sphere.h" />
