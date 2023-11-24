@@ -1,23 +1,54 @@
-﻿  Camera.cpp
-  GCP_GFX_Framework.cpp
-  Main.cpp
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(45,43): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  Object.cpp
+  Program.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\xutility(275,56): error C2661: 'Sphere::Sphere': no overloaded function takes 3 arguments
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\xutility(275,56): message : while trying to match the argument list '(glm::vec3, glm::vec3, float)'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(1983): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,glm::vec3&,glm::vec3&,float&>(_Ty &,glm::vec3 &,glm::vec3 &,float &) noexcept(false)' being compiled
+          with
+          [
+              _Ty=Sphere
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(2663): message : see reference to function template instantiation 'std::_Ref_count_obj2<Sphere>::_Ref_count_obj2<glm::vec3&,glm::vec3&,float&>(glm::vec3 &,glm::vec3 &,float &)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(2664,20): message : see reference to function template instantiation 'std::_Ref_count_obj2<Sphere>::_Ref_count_obj2<glm::vec3&,glm::vec3&,float&>(glm::vec3 &,glm::vec3 &,float &)' being compiled
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(30,55): message : see reference to function template instantiation 'std::shared_ptr<Sphere> std::make_shared<Sphere,glm::vec3&,glm::vec3&,float&>(glm::vec3 &,glm::vec3 &,float &)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\xutility(275,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(1983): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,T&,T&,int>(_Ty &,T &,T &,int &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=Camera,
+              T=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(2663): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
+          with
+          [
+              T=int,
+              _Ty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(2664,20): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
+          with
+          [
+              T=int,
+              _Ty=int
+          ]
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(47,60): message : see reference to function template instantiation 'std::shared_ptr<Camera> std::make_shared<Camera,T&,T&,int>(T &,T &,int &&)' being compiled
           with
           [
               T=int
           ]
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(45,32): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\xutility(275,77): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-  Ray.cpp
   RayTracer.cpp
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(55,17): warning C4305: 'initializing': truncation from '__int64' to 'float'
-  Sphere.cpp
-  glew.c
-  Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 759 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  GCP_Raytracer_Framework.vcxproj -> \\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Release\GCP_Raytracer_Framework.exe
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(29,86): error C2247: 'Object::colour' not accessible because 'Sphere' uses 'private' to inherit from 'Object'
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Object.h(20,12): message : see declaration of 'Object::colour'
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Sphere.h(4,7): message : see declaration of 'Sphere'
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Object.h(12,7): message : see declaration of 'Object'
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(29,86): error C2248: 'Object::colour': cannot access private member declared in class 'Sphere'
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Object.h(20,12): message : see declaration of 'Object::colour'
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Sphere.h(4,7): message : see declaration of 'Sphere'
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(55,29): warning C4305: 'initializing': truncation from '__int64' to 'float'

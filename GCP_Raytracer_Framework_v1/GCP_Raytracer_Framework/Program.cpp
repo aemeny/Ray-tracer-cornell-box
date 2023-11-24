@@ -10,7 +10,7 @@ Program::~Program() {}
 int Program::init()
 {
 	// Set window size
-	winSize = glm::ivec2(600, 600);
+	winSize = glm::ivec2(1000, 1000);
 
 	// Initialises SDL and OpenGL and sets up a framebuffer
 	if (!_myFramework.Init(winSize))
@@ -22,29 +22,29 @@ int Program::init()
 	sampleSize = 100;
 
 	//Sphere default radius
-	float radius = 100;
+	float radius = 0.8f;
 
-	//glm::vec3 pos = glm::vec3(1.0f, 1.0f, -4.0f);
-	glm::vec3 pos = glm::vec3(175.0f, 175.0f, -120.0f);
+	glm::vec3 pos = glm::vec3(-1.05f, 1.05f, -5.3f);
+	//glm::vec3 pos = glm::vec3(175.0f, 175.0f, -120.0f);
 	glm::vec3 colour = glm::vec3(1.0f, 1.0f, 1.0f);
-	sphere = new Sphere(pos, colour, radius + 15);
+	sphere = std::make_shared<Sphere>(pos, colour, radius);
 
-	//glm::vec3 pos2 = glm::vec3(-1.0f, -1.0f, -4.0f);
-	glm::vec3 pos2 = glm::vec3(175.0f, 425.0f, -120.0f);
+	glm::vec3 pos2 = glm::vec3(-1.05f, -1.05f, -5.3f);
+	//glm::vec3 pos2 = glm::vec3(175.0f, 425.0f, -120.0f);
 	glm::vec3 colour2 = glm::vec3(0.0f, 0.0f, 1.0f);
-	sphere2 = new Sphere(pos2, colour2, radius);
+	sphere2 = std::make_shared<Sphere>(pos2, colour2, radius);
 
-	//glm::vec3 pos3 = glm::vec3(-1.0f, 1.0f, -4.0f);
-	glm::vec3 pos3 = glm::vec3(425.0f, 175.0f, -120.0f);
+	glm::vec3 pos3 = glm::vec3(1.05f, 1.05f, -5.3f);
+	//glm::vec3 pos3 = glm::vec3(425.0f, 175.0f, -120.0f);
 	glm::vec3 colour3 = glm::vec3(1.0f, 0.0f, 0.0f);
-	sphere3 = new Sphere(pos3, colour3, radius);
+	sphere3 = std::make_shared<Sphere>(pos3, colour3, radius);
 
-	//glm::vec3 pos4 = glm::vec3(1.0f, -1.0f, -4.0f);
-	glm::vec3 pos4 = glm::vec3(425.0f, 350.0f, -120.0f);
+	glm::vec3 pos4 = glm::vec3(1.05f, -0.6f, -5.3f);
+	//glm::vec3 pos4 = glm::vec3(425.0f, 350.0f, -120.0f);
 	glm::vec3 colour4 = glm::vec3(0.0f, 1.0f, 0.0f);
-	sphere4 = new Sphere(pos4, colour4, radius - 40);
+	sphere4 = std::make_shared<Sphere>(pos4, colour4, radius - 0.2f);
 
-	camera = new Camera(winSize.y, winSize.x, 60);
+	camera = std::make_shared<Camera>(winSize.y, winSize.x, 45);
 
 	rayTracer.addObject(sphere);
 	rayTracer.addObject(sphere2);
@@ -76,7 +76,7 @@ void Program::runProgram()
 						Ray ray = camera->getRay(pos);
 
 						//On intersect add colour for antialiasing
-						finalColour += rayTracer.traceRay(ray);
+						finalColour += rayTracer.traceRay(ray, 5, true);
 					}
 					//Decrease final colour to an adverage of area
 					finalColour /= sampleSize;

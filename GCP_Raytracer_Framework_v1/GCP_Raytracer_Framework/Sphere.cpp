@@ -1,7 +1,7 @@
 #include "Sphere.h"
 
-Sphere::Sphere(glm::vec3 _position, glm::vec3 _colour, float _radius)
-	: position(_position), colour(_colour), radius(_radius)
+Sphere::Sphere(glm::vec3 _position, glm::vec3 _colour, float _shiny, float _radius)
+	: Object(_position, _colour, _shiny), radius(_radius)
 {}
 
 finalIntersection Sphere::rayIntersect(Ray _ray)

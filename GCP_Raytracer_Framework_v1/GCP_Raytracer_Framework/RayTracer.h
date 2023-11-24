@@ -1,25 +1,22 @@
 #pragma once
 #include "Sphere.h"
+#include "Plane.h"
 #include "Camera.h"
 
 class RayTracer
 {
 private:
-	std::vector<Sphere*> m_objsInScene;
+	std::vector<std::shared_ptr<Sphere>> m_objsInScene;
 
 	glm::vec3 specularLighting(finalIntersection _info, glm::vec3 _lightDir, Ray _ray);
-
-	float facing(glm::vec3 _surfNorm, glm::vec3 _lightDir);
-
-	glm::vec3 reflectionLighting(finalIntersection _info, Ray _oldRay);
 
 	finalIntersection findClosestObject(Ray _ray);
 
 	bool inShadowCheck(finalIntersection _info, glm::vec3 _lightDir);
 
 public:
-	glm::vec3 traceRay(Ray _ray);
-	void addObject(Sphere* _obj);
+	glm::vec3 traceRay(Ray _ray, int _numRay, bool _firstRun);
+	void addObject(std::shared_ptr<Sphere> _obj);
 };
 
 

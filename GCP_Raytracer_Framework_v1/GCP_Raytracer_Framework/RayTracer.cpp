@@ -1,39 +1,49 @@
 #include "RayTracer.h"
 
-glm::vec3 RayTracer::traceRay(Ray _ray)
+glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 {
+	finalIntersection Info = findClosestObject(_ray);
 
-	finalIntersection finalInfo = findClosestObject(_ray);
-
-	if (finalInfo.hasIntersected)
+	if (Info.hasIntersected && _numRay > 0)
 	{
+		//init values
+		glm::vec3 shade{ 0 };
+		glm::vec3 diffuse{ 0.8f };
+		glm::vec3 lightPos{ 0.5f, 0.5f, -3.4f };
+		glm::vec3 lightDir = glm::normalize(lightPos - Info.intersectionPos);
+
 		//look for shadows and return black if in shadow
-		glm::vec3 lightPos{ 300.0f, 300.0f, 150.0f };
-		glm::vec3 lightDir = glm::normalize(lightPos - finalInfo.intersectionPos);
-		
-		if (inShadowCheck(finalInfo, lightDir))
+		if (inShadowCheck(Info, lightDir))
 			return glm::vec3(0);
 
-		//calculate first ray intersect colour
-		glm::vec3 diffuse{ 0.9f };
-		glm::vec3 reflectionColour = reflectionLighting(finalInfo, _ray);
+		//Bounce multiple rays for reflection
+		glm::vec3 rayDirection = _ray.direction - (2.0f * Info.surfaceNormal * glm::dot(_ray.direction, Info.surfaceNormal));
+		Ray newRay = Ray(Info.intersectionPos, rayDirection); //create new ray based on reflection angle
+		glm::vec3 bounceColour = traceRay(newRay, _numRay - 1, false);
 
-		glm::vec3 shade = glm::dot(lightDir, finalInfo.surfaceNormal) * (m_objsInScene.at(finalInfo.objIndex)->colour + reflectionColour) * diffuse;
-		
-		shade += specularLighting(finalInfo, lightDir, _ray);
-		//shade *= reflectionColour;
+		//Calculate specular lighting
+		glm::vec3 specLighting = specularLighting(Info, lightDir, _ray);
+		if (specLighting.x > 0.99f && specLighting.y > 0.99f && specLighting.z > 0.99f) //if in spec colour keep as white
+			shade += glm::dot(lightDir, Info.surfaceNormal) * 1.0f;
+		else
+			shade += glm::dot(lightDir, Info.surfaceNormal) * (m_objsInScene.at(Info.objIndex)->colour + bounceColour) * diffuse;
 
-		shade.x = glm::min(shade.x, 1.0f);
-		shade.y = glm::min(shade.y, 1.0f);
-		shade.z = glm::min(shade.z, 1.0f);
+		shade += specLighting; // Add spec lighting
+
+		//control shade values so they dont go out of scope
+		if (shade.x < 0.0f) { shade.x = 0.0f; } else { shade.x = glm::min(shade.x, 1.0f); }
+		if (shade.y < 0.0f) { shade.y = 0.0f; } else { shade.y = glm::min(shade.y, 1.0f); }
+		if (shade.z < 0.0f) { shade.z = 0.0f; } else { shade.z = glm::min(shade.z, 1.0f); }
 
 		return shade;
 	}
+	else if (_firstRun)
+		return glm::vec3(0.0f, 0.0f, 0.2f); //if miss on first ray colour background else add nothing
 	else
-		return glm::vec3(0.0f, 0.0f, 0.0f);
+		return glm::vec3(0); //If no bounces left / no sphere to hit return nothing
 }
 
-void RayTracer::addObject(Sphere* _obj)
+void RayTracer::addObject(std::shared_ptr<Sphere> _obj)
 {
 	m_objsInScene.push_back(_obj);
 }
@@ -88,52 +98,17 @@ bool RayTracer::inShadowCheck(finalIntersection _info, glm::vec3 _lightDir)
 	return false;
 }
 
-glm::vec3 RayTracer::reflectionLighting(finalIntersection _info, Ray _oldRay)
-{
-	int reflectionBounces = 5;
-	glm::vec3 finalShade(0);
-	glm::vec3 lightPos{ 300.0f, 300.0f, 150.0f };
-
-	glm::vec3 rayDirection = _oldRay.direction - (2.0f * _info.surfaceNormal * glm::dot(_oldRay.direction, _info.surfaceNormal));
-	Ray ray = Ray(_info.intersectionPos, rayDirection);
-
-	for (int i = 0; i < reflectionBounces; i++)
-	{
-		finalIntersection info = findClosestObject(ray);						 
-																				 
-		if (info.hasIntersected)												 
-		{																		 
-			glm::vec3 lightDir = glm::normalize(lightPos - info.intersectionPos);
-
-			finalShade += ((m_objsInScene.at(info.objIndex)->colour)) / (float)(reflectionBounces + 1);
-
-			rayDirection = ray.direction - (2.0f * info.surfaceNormal * glm::dot(ray.direction, info.surfaceNormal));
-			ray = Ray(info.intersectionPos, rayDirection);
-		}
-		else
-			break;
-	}
-
-	return finalShade;
-}
-
 glm::vec3 RayTracer::specularLighting(finalIntersection _info, glm::vec3 _lightDir, Ray _ray)
 {
 	glm::vec3 eyeDir = _ray.direction;
 	glm::vec3 halfVec = glm::normalize(_lightDir - eyeDir);
 
-	glm::vec3 lightColour{ 1.0f };
+	glm::vec3 lightColour{ 0.8f };
 	float shininess = 40.0f;
 
-	glm::vec3 spec = lightColour * facing(_info.surfaceNormal, _lightDir) * glm::pow(glm::max(glm::dot(_info.surfaceNormal, halfVec), 0.0f), shininess);
-
-	return spec;
-}
-
-float RayTracer::facing(glm::vec3 _surfNorm, glm::vec3 _lightDir)
-{
-	if (glm::dot(_surfNorm, _lightDir) > 0)
-		return 1;
+	if (glm::dot(_info.surfaceNormal, _lightDir) > 0)
+		return lightColour * glm::pow(glm::max(glm::dot(_info.surfaceNormal, halfVec), 0.0f), shininess);
 	else
-		return 0;
+		return glm::vec3(0);
+	
 }

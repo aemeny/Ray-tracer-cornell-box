@@ -1,15 +1,1 @@
-﻿  Main.cpp
-  Program.cpp
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(47,40): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(47,29): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-  Generating Code...
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(53): warning C4715: 'Program::init': not all control paths return a value
-  GCP_Raytracer_Framework.vcxproj -> \\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe
+﻿  GCP_Raytracer_Framework.vcxproj -> \\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe
