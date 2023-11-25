@@ -1,1 +1,36 @@
-﻿  GCP_Raytracer_Framework.vcxproj -> \\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe
+﻿  Program.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(231,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(2023,1): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,T&,T&,int>(_Ty &,T &,T &,int &&) noexcept(false)' being compiled
+          with
+          [
+              _Ty=Camera,
+              T=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(2703,36): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
+          with
+          [
+              T=int,
+              _Ty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(2704,20): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
+          with
+          [
+              T=int,
+              _Ty=int
+          ]
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(56,60): message : see reference to function template instantiation 'std::shared_ptr<Camera> std::make_shared<Camera,T&,T&,int>(T &,T &,int &&)' being compiled
+          with
+          [
+              T=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(231,77): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(57): warning C4715: 'Program::init': not all control paths return a value
+  GCP_Raytracer_Framework.vcxproj -> C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe

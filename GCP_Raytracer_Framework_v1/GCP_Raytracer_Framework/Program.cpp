@@ -10,7 +10,7 @@ Program::~Program() {}
 int Program::init()
 {
 	// Set window size
-	winSize = glm::ivec2(1000, 1000);
+	winSize = glm::ivec2(900, 900);
 
 	// Initialises SDL and OpenGL and sets up a framebuffer
 	if (!_myFramework.Init(winSize))
@@ -19,37 +19,41 @@ int Program::init()
 	}
 
 	//Samples for antialiasing
-	sampleSize = 100;
+	sampleSize = 10;
 
 	//Sphere default radius
-	float radius = 0.8f;
+	float radius = 1.5f;
 
-	glm::vec3 pos = glm::vec3(-1.05f, 1.05f, -5.3f);
-	//glm::vec3 pos = glm::vec3(175.0f, 175.0f, -120.0f);
+	//Shiny defualt value
+	float shiny = 0.9f;
+
+	glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -20.0f);
 	glm::vec3 colour = glm::vec3(1.0f, 1.0f, 1.0f);
-	sphere = std::make_shared<Sphere>(pos, colour, radius);
+	std::shared_ptr<Sphere> sphere = rayTracer.addObject<Sphere>(pos, colour, shiny, radius);
 
-	glm::vec3 pos2 = glm::vec3(-1.05f, -1.05f, -5.3f);
-	//glm::vec3 pos2 = glm::vec3(175.0f, 425.0f, -120.0f);
+	glm::vec3 pos2 = glm::vec3(-2.0f, -3.0f, -20.0f);
 	glm::vec3 colour2 = glm::vec3(0.0f, 0.0f, 1.0f);
-	sphere2 = std::make_shared<Sphere>(pos2, colour2, radius);
+	std::shared_ptr<Sphere> sphere2 = rayTracer.addObject<Sphere>(pos2, colour2, shiny, radius);
 
-	glm::vec3 pos3 = glm::vec3(1.05f, 1.05f, -5.3f);
-	//glm::vec3 pos3 = glm::vec3(425.0f, 175.0f, -120.0f);
+	glm::vec3 pos3 = glm::vec3(3.0f, 3.0f, -20.0f);
 	glm::vec3 colour3 = glm::vec3(1.0f, 0.0f, 0.0f);
-	sphere3 = std::make_shared<Sphere>(pos3, colour3, radius);
+	std::shared_ptr<Sphere> sphere3 = rayTracer.addObject<Sphere>(pos3, colour3, shiny, radius);
 
-	glm::vec3 pos4 = glm::vec3(1.05f, -0.6f, -5.3f);
-	//glm::vec3 pos4 = glm::vec3(425.0f, 350.0f, -120.0f);
+	glm::vec3 pos4 = glm::vec3(1.3f, -0.7f, -15.0f);
 	glm::vec3 colour4 = glm::vec3(0.0f, 1.0f, 0.0f);
-	sphere4 = std::make_shared<Sphere>(pos4, colour4, radius - 0.2f);
+	std::shared_ptr<Sphere> sphere4 = rayTracer.addObject<Sphere>(pos4, colour4, shiny, radius - 0.5f);
 
-	camera = std::make_shared<Camera>(winSize.y, winSize.x, 45);
+	glm::vec3 pos5 = glm::vec3(0.0f, 0.0f, -25.0f);
+	glm::vec3 colour5 = glm::vec3(1.0f, 1.0f, 1.0f);
+	glm::vec3 norm = glm::vec3(0.0f, 0.0f, 1.0f);
+	std::shared_ptr<Plane> plane = rayTracer.addObject<Plane>(pos5, colour5, shiny, NULL, norm);
+	
+	glm::vec3 pos6 = glm::vec3(0.0f, 6.0f, 0.0f);
+	glm::vec3 colour6 = glm::vec3(0.6f, 0.0f, 0.6f);
+	glm::vec3 norm2 = glm::vec3(0.0f, -1.0f, 0.0f);
+	std::shared_ptr<Plane> plane2 = rayTracer.addObject<Plane>(pos6, colour6, shiny, NULL, norm2);
 
-	rayTracer.addObject(sphere);
-	rayTracer.addObject(sphere2);
-	rayTracer.addObject(sphere3);
-	rayTracer.addObject(sphere4);
+	camera = std::make_shared<Camera>(winSize.y, winSize.x, 40);
 }
 
 void Program::runProgram()
@@ -76,7 +80,7 @@ void Program::runProgram()
 						Ray ray = camera->getRay(pos);
 
 						//On intersect add colour for antialiasing
-						finalColour += rayTracer.traceRay(ray, 5, true);
+						finalColour += rayTracer.traceRay(ray, 3, true);
 					}
 					//Decrease final colour to an adverage of area
 					finalColour /= sampleSize;
@@ -87,27 +91,29 @@ void Program::runProgram()
 		};
 
 
-	std::thread threads[6];
+	std::thread threads[10];
 
 	int xPos = 0;
 	int yPos = 0;
 	int index = 0;
-	for (size_t i = 0; i < 3; i++)
+	for (size_t i = 0; i < 5; i++)
 	{
 		for (size_t j = 0; j < 2; j++)
 		{
-			threads[index] = std::thread(threadFunc, xPos, xPos + winSize.x / 3, yPos, yPos + winSize.y / 2);
+			threads[index] = std::thread(threadFunc, xPos, xPos + winSize.x / 5, yPos, yPos + winSize.y / 2);
 			index++;
 			yPos += winSize.y / 2;
 		}
 		yPos = 0;
-		xPos += winSize.x / 3;
+		xPos += winSize.x / 5;
 	}
 
 	for (size_t i = 0; i < index; i++)
 	{
 		threads[i].join();
 	}
+
+	std::cout << "DONE";
 
 	// Pushes the framebuffer to OpenGL and renders to screen
 	// Also contains an event loop that keeps the window going until it's closed

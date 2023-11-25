@@ -1,12 +1,12 @@
 #pragma once
 #include "Object.h"
 
-class Plane : Object
+struct Plane : Object
 {
 public:
-	glm::vec3 normal;
+	~Plane();
 
-	Plane(glm::vec3 _position, glm::vec3 _colour, float _shiny, glm::vec3 _normal);
+	void init(glm::vec3 _pos, glm::vec3 _col, float _shiny, float _radius, glm::vec3 _norm) override;
 
 	finalIntersection rayIntersect(Ray _ray) override;
 };

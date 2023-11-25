@@ -1,7 +1,7 @@
 #pragma once
 #include "Ray.h"
 
-class Camera
+struct Camera
 {
 private:
 	glm::mat4 m_inverseViewMatrix;

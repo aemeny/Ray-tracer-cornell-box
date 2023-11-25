@@ -1,7 +1,6 @@
 #include "Object.h"
 
-Object::Object(glm::vec3 _position, glm::vec3 _colour, float _shiny) :
-	position(_position), colour(_colour), shiny(_shiny)
+void Object::init(glm::vec3 _pos, glm::vec3 _col, float _shiny, float _radius, glm::vec3 _norm)
 {}
 
 finalIntersection Object::rayIntersect(Ray _ray)

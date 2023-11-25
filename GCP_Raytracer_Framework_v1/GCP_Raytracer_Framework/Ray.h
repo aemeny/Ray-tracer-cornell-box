@@ -1,7 +1,7 @@
 #pragma once
 #include "GCP_GFX_Framework.h"
 
-class Ray
+struct Ray
 {
 public:
 	glm::vec3 origin;

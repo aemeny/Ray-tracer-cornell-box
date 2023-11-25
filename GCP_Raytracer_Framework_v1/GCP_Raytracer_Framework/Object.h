@@ -9,15 +9,17 @@ struct finalIntersection
 	int objIndex = 0;
 };
 
-class Object
+struct Object
 {
 public:
-	Object(glm::vec3 _position, glm::vec3 _colour, float _shiny);
 
+	virtual void init(glm::vec3 _pos, glm::vec3 _col, float _shiny, float _radius, glm::vec3 _norm);
 	virtual finalIntersection rayIntersect(Ray _ray);
 
 	glm::vec3 position;
 	glm::vec3 colour;
 	float shiny;
+	float radius;
+	glm::vec3 normal;
 };
 

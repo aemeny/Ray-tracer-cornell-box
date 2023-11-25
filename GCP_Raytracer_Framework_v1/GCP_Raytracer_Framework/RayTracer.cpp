@@ -8,8 +8,8 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 	{
 		//init values
 		glm::vec3 shade{ 0 };
-		glm::vec3 diffuse{ 0.8f };
-		glm::vec3 lightPos{ 0.5f, 0.5f, -3.4f };
+		glm::vec3 diffuse{ 1.0f };
+		glm::vec3 lightPos{ 25.0f, -20.0f, 10.0f };
 		glm::vec3 lightDir = glm::normalize(lightPos - Info.intersectionPos);
 
 		//look for shadows and return black if in shadow
@@ -41,11 +41,6 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 		return glm::vec3(0.0f, 0.0f, 0.2f); //if miss on first ray colour background else add nothing
 	else
 		return glm::vec3(0); //If no bounces left / no sphere to hit return nothing
-}
-
-void RayTracer::addObject(std::shared_ptr<Sphere> _obj)
-{
-	m_objsInScene.push_back(_obj);
 }
 
 finalIntersection RayTracer::findClosestObject(Ray _ray)

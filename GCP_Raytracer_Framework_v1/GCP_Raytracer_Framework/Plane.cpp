@@ -1,8 +1,15 @@
 #include "Plane.h"
 
-Plane::Plane(glm::vec3 _position, glm::vec3 _colour, float _shiny, glm::vec3 _normal) :
-	Object(_position, _colour, _shiny), normal(_normal)
-{}
+Plane::~Plane() {}
+
+void Plane::init(glm::vec3 _position, glm::vec3 _colour, float _shiny, float _radius, glm::vec3 _normal)
+{
+	position = _position;
+	colour = _colour;
+	shiny = _shiny;
+	normal = _normal;
+	radius = _radius;
+}
 
 finalIntersection Plane::rayIntersect(Ray _ray)
 {
