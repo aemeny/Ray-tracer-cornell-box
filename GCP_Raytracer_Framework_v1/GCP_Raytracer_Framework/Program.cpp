@@ -29,31 +29,47 @@ int Program::init()
 
 	glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -20.0f);
 	glm::vec3 colour = glm::vec3(1.0f, 1.0f, 1.0f);
-	std::shared_ptr<Sphere> sphere = rayTracer.addObject<Sphere>(pos, colour, shiny, radius);
+	rayTracer.addObject<Sphere>(pos, colour, shiny, radius);
 
-	glm::vec3 pos2 = glm::vec3(-2.0f, -3.0f, -20.0f);
-	glm::vec3 colour2 = glm::vec3(0.0f, 0.0f, 1.0f);
-	std::shared_ptr<Sphere> sphere2 = rayTracer.addObject<Sphere>(pos2, colour2, shiny, radius);
+	pos = glm::vec3(-2.0f, -3.0f, -20.0f);
+	colour = glm::vec3(0.0f, 0.0f, 1.0f);
+	rayTracer.addObject<Sphere>(pos, colour, shiny, radius);
 
-	glm::vec3 pos3 = glm::vec3(3.0f, 3.0f, -20.0f);
-	glm::vec3 colour3 = glm::vec3(1.0f, 0.0f, 0.0f);
-	std::shared_ptr<Sphere> sphere3 = rayTracer.addObject<Sphere>(pos3, colour3, shiny, radius);
+	pos = glm::vec3(3.0f, 3.0f, -20.0f);
+	colour = glm::vec3(1.0f, 0.0f, 0.0f);
+	rayTracer.addObject<Sphere>(pos, colour, shiny, radius);
 
-	glm::vec3 pos4 = glm::vec3(1.3f, -0.7f, -15.0f);
-	glm::vec3 colour4 = glm::vec3(0.0f, 1.0f, 0.0f);
-	std::shared_ptr<Sphere> sphere4 = rayTracer.addObject<Sphere>(pos4, colour4, shiny, radius - 0.5f);
+	pos = glm::vec3(1.3f, -0.7f, -11.0f);
+	colour = glm::vec3(0.0f, 1.0f, 0.0f);
+	rayTracer.addObject<Sphere>(pos, colour, shiny, radius - 0.5f);
 
-	glm::vec3 pos5 = glm::vec3(0.0f, 0.0f, -25.0f);
-	glm::vec3 colour5 = glm::vec3(1.0f, 1.0f, 1.0f);
+	pos = glm::vec3(0.0f, 0.0f, -25.0f);
+	colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 norm = glm::vec3(0.0f, 0.0f, 1.0f);
-	std::shared_ptr<Plane> plane = rayTracer.addObject<Plane>(pos5, colour5, shiny, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
 	
-	glm::vec3 pos6 = glm::vec3(0.0f, 6.0f, 0.0f);
-	glm::vec3 colour6 = glm::vec3(0.6f, 0.0f, 0.6f);
-	glm::vec3 norm2 = glm::vec3(0.0f, -1.0f, 0.0f);
-	std::shared_ptr<Plane> plane2 = rayTracer.addObject<Plane>(pos6, colour6, shiny, NULL, norm2);
+	pos = glm::vec3(0.0f, 8.0f, 0.0f);
+	colour = glm::vec3(0.6f, 0.0f, 0.6f);
+	norm = glm::vec3(0.0f, -1.0f, 0.0f);
+	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
 
-	camera = std::make_shared<Camera>(winSize.y, winSize.x, 40);
+	pos = glm::vec3(-8.0f, 0.0f, 0.0f);
+	colour = glm::vec3(0.6f, 0.6f, 0.0f);
+	norm = glm::vec3(1.0f, 0.0f, 0.0f);
+	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
+
+	pos = glm::vec3(8.0f, 0.0f, 0.0f);
+	colour = glm::vec3(0.0f, 0.6f, 0.6f);
+	norm = glm::vec3(-1.0f, 0.0f, 0.0f);
+	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
+
+	pos = glm::vec3(0.0f, -8.0f, 0.0f);
+	colour = glm::vec3(0.0f, 0.6f, 0.0f);
+	norm = glm::vec3(0.0f, 1.0f, 0.0f);
+	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
+
+
+	camera = std::make_shared<Camera>(winSize.y, winSize.x, 60);
 }
 
 void Program::runProgram()

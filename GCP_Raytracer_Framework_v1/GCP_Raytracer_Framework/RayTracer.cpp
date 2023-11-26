@@ -8,8 +8,8 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 	{
 		//init values
 		glm::vec3 shade{ 0 };
-		glm::vec3 diffuse{ 1.0f };
-		glm::vec3 lightPos{ 25.0f, -20.0f, 10.0f };
+		glm::vec3 diffuse{ 0.8f };
+		glm::vec3 lightPos{ 3.0f, -3.0f, 0.0f };
 		glm::vec3 lightDir = glm::normalize(lightPos - Info.intersectionPos);
 
 		//look for shadows and return black if in shadow
@@ -80,7 +80,9 @@ bool RayTracer::inShadowCheck(finalIntersection _info, glm::vec3 _lightDir)
 	Ray ray = Ray(_info.intersectionPos, _lightDir);
 	for (int i = 0; i < m_objsInScene.size(); i++)
 	{
-		if (i == _info.objIndex)
+		if (i == _info.objIndex) //if the object is itself
+			continue;
+		else if (m_objsInScene.at(i)->radius == NULL) //if object is a plane
 			continue;
 
 		finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
