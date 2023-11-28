@@ -40,8 +40,6 @@ Ray Camera::getRay(glm::vec2 windowPos)
 
 	Ray ray = Ray(nearProjection, glm::normalize(direction)); 
 
-	//Ray ray = Ray(glm::vec3(windowPos.x, windowPos.y ,0), glm::vec3(0,0,-1));
-
 	return ray;
 }
 

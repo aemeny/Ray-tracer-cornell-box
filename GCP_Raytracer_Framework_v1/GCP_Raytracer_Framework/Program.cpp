@@ -49,27 +49,27 @@ int Program::init()
 	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
 	
 	pos = glm::vec3(0.0f, 8.0f, 0.0f);
-	colour = glm::vec3(0.6f, 0.0f, 0.6f);
+	colour = glm::vec3(0.8f, 0.0f, 0.8f);
 	norm = glm::vec3(0.0f, -1.0f, 0.0f);
 	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
 
 	pos = glm::vec3(-8.0f, 0.0f, 0.0f);
-	colour = glm::vec3(0.6f, 0.6f, 0.0f);
+	colour = glm::vec3(0.8f, 0.8f, 0.0f);
 	norm = glm::vec3(1.0f, 0.0f, 0.0f);
 	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
 
 	pos = glm::vec3(8.0f, 0.0f, 0.0f);
-	colour = glm::vec3(0.0f, 0.6f, 0.6f);
+	colour = glm::vec3(0.0f, 0.8f, 0.8f);
 	norm = glm::vec3(-1.0f, 0.0f, 0.0f);
 	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
 
 	pos = glm::vec3(0.0f, -8.0f, 0.0f);
-	colour = glm::vec3(0.0f, 0.6f, 0.0f);
+	colour = glm::vec3(0.0f, 0.8f, 0.0f);
 	norm = glm::vec3(0.0f, 1.0f, 0.0f);
 	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
 
 
-	camera = std::make_shared<Camera>(winSize.y, winSize.x, 60);
+	camera = std::make_shared<Camera>(winSize.y, winSize.x, 50);
 }
 
 void Program::runProgram()
@@ -107,21 +107,21 @@ void Program::runProgram()
 		};
 
 
-	std::thread threads[10];
+	std::thread threads[20];
 
 	int xPos = 0;
 	int yPos = 0;
 	int index = 0;
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 10; i++)
 	{
 		for (size_t j = 0; j < 2; j++)
 		{
-			threads[index] = std::thread(threadFunc, xPos, xPos + winSize.x / 5, yPos, yPos + winSize.y / 2);
+			threads[index] = std::thread(threadFunc, xPos, xPos + winSize.x / 10, yPos, yPos + winSize.y / 2);
 			index++;
 			yPos += winSize.y / 2;
 		}
 		yPos = 0;
-		xPos += winSize.x / 5;
+		xPos += winSize.x / 10;
 	}
 
 	for (size_t i = 0; i < index; i++)

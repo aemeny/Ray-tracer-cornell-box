@@ -1,4 +1,5 @@
 #include "RayTracer.h"
+#include <random>
 
 glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 {
@@ -9,12 +10,11 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 		//init values
 		glm::vec3 shade{ 0 };
 		glm::vec3 diffuse{ 0.8f };
-		glm::vec3 lightPos{ 3.0f, -3.0f, 0.0f };
-		glm::vec3 lightDir = glm::normalize(lightPos - Info.intersectionPos);
 
-		//look for shadows and return black if in shadow
-		if (inShadowCheck(Info, lightDir))
-			return glm::vec3(0);
+		glm::vec3 lightDir = glm::normalize(lightPoint->position - Info.intersectionPos);
+
+		//look for shadows and return shadow colour
+		glm::vec3 shadowColour = inShadowCheck(Info, lightPoint, 16);
 
 		//Bounce multiple rays for reflection
 		glm::vec3 rayDirection = _ray.direction - (2.0f * Info.surfaceNormal * glm::dot(_ray.direction, Info.surfaceNormal));
@@ -29,6 +29,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 			shade += glm::dot(lightDir, Info.surfaceNormal) * (m_objsInScene.at(Info.objIndex)->colour + bounceColour) * diffuse;
 
 		shade += specLighting; // Add spec lighting
+		shade += shadowColour; // Add shadow lighting
 
 		//control shade values so they dont go out of scope
 		if (shade.x < 0.0f) { shade.x = 0.0f; } else { shade.x = glm::min(shade.x, 1.0f); }
@@ -75,24 +76,36 @@ finalIntersection RayTracer::findClosestObject(Ray _ray)
 	return finalInfo;
 }
 
-bool RayTracer::inShadowCheck(finalIntersection _info, glm::vec3 _lightDir)
+glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, std::shared_ptr<Sphere> _light, int _lightSamples)
 {
-	Ray ray = Ray(_info.intersectionPos, _lightDir);
-	for (int i = 0; i < m_objsInScene.size(); i++)
-	{
-		if (i == _info.objIndex) //if the object is itself
-			continue;
-		else if (m_objsInScene.at(i)->radius == NULL) //if object is a plane
-			continue;
+	glm::vec3 finalShadeColour(0);
 
-		finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
-		if (info.hasIntersected)
+	for (int i = 0; i < _lightSamples; i++)
+	{
+		double theta = ((double)rand() / RAND_MAX) * (2.0 * M_PI);
+		double x = ((double)rand() / RAND_MAX) * 2.0f - 1.0f;
+		double s = sqrt(1.0f - x * x);
+		glm::vec3 ranLightPos{ x, s * cos(theta), s * sin(theta) };
+		
+		glm::vec3 lightDir = glm::normalize(_light->position + ranLightPos - _info.intersectionPos);
+		Ray ray = Ray(_info.intersectionPos, lightDir);
+
+		for (int i = 0; i < m_objsInScene.size(); i++)
 		{
-			return true;
+			if (i == _info.objIndex) //if the object is itself
+				continue;
+			else if (m_objsInScene.at(i)->radius == NULL) //if object is a plane
+				continue;
+
+			finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
+			if (!info.hasIntersected)
+			{
+				finalShadeColour += _lightSamples * glm::dot(_info.surfaceNormal, lightDir);
+			}
 		}
 	}
 
-	return false;
+	return finalShadeColour;
 }
 
 glm::vec3 RayTracer::specularLighting(finalIntersection _info, glm::vec3 _lightDir, Ray _ray)
