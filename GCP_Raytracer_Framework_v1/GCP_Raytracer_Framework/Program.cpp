@@ -96,7 +96,7 @@ void Program::runProgram()
 						Ray ray = camera->getRay(pos);
 
 						//On intersect add colour for antialiasing
-						finalColour += rayTracer.traceRay(ray, 3, true);
+						finalColour += rayTracer.traceRay(ray, 1, true);
 					}
 					//Decrease final colour to an adverage of area
 					finalColour /= sampleSize;

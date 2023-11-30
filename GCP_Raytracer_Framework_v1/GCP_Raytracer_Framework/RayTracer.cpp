@@ -14,7 +14,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 		glm::vec3 lightDir = glm::normalize(lightPos - Info.intersectionPos);
 
 		//look for shadows and return shadow colour
-		glm::vec3 shadowColour = inShadowCheck(Info, lightPos, 1);
+		glm::vec3 shadowColour = inShadowCheck(Info, lightPos, 16);
 
 		//Bounce multiple rays for reflection
 		glm::vec3 rayDirection = _ray.direction - (2.0f * Info.surfaceNormal * glm::dot(_ray.direction, Info.surfaceNormal));
@@ -29,7 +29,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 			shade += glm::dot(lightDir, Info.surfaceNormal) * (m_objsInScene.at(Info.objIndex)->colour + bounceColour) * diffuse;
 
 		shade += specLighting; // Add spec lighting
-		shade += shadowColour; // Add shadow lighting
+		shade *= shadowColour; // Add shadow lighting
 
 		//control shade values so they dont go out of scope
 		if (shade.x < 0.0f) { shade.x = 0.0f; } else { shade.x = glm::min(shade.x, 1.0f); }
@@ -78,23 +78,19 @@ finalIntersection RayTracer::findClosestObject(Ray _ray)
 
 glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, glm::vec3 _light, int _lightSamples)
 {
-	glm::vec3 finalShadeColour(0);
+	glm::vec3 finalShadeColour(1);
 
 	for (int i = 0; i < _lightSamples; i++)
 	{
 		float u = rand();
-		float x1 = rand();
-		float x2 = rand();
-		float x3 = rand();
+		float v = rand();
+		float theta = 2 * M_PI * u;
+		float phi = acos(2 * v - 1);
+		float x = _light.x + (0.5f * sin(phi) * cos(theta));
+		float y = _light.y + (0.5f * sin(phi) * sin(theta));
+		float z = _light.z + (0.5f * cos(phi));
 
-		float mag = sqrt(x1 * x1 + x2 * x2 + x3 * x3);
-		x1 /= mag; x2 /= mag; x3 /= mag;
-
-		// Math.cbrt is cube root
-		float c = cbrt(u);
-
-		glm::vec3 lightPos = { x1 * c, x2 * c, x3 * c };
-
+		glm::vec3 lightPos = { x, y, z };
 
 		glm::vec3 lightDir = glm::normalize(lightPos - _info.intersectionPos);
 		Ray ray = Ray(_info.intersectionPos, lightDir);
@@ -107,9 +103,9 @@ glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, glm::vec3 _light, in
 				continue;
 
 			finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
-			if (!info.hasIntersected)
+			if (info.hasIntersected)
 			{
-				finalShadeColour += _lightSamples * glm::dot(_info.surfaceNormal, lightDir);
+				finalShadeColour -= glm::vec3(1) / (float)_lightSamples;
 			}
 		}
 	}
