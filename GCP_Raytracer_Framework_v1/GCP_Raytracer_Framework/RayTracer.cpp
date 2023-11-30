@@ -10,11 +10,11 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 		//init values
 		glm::vec3 shade{ 0 };
 		glm::vec3 diffuse{ 0.8f };
-
-		glm::vec3 lightDir = glm::normalize(lightPoint->position - Info.intersectionPos);
+		glm::vec3 lightPos = {3.0f, -3.0f, 0};
+		glm::vec3 lightDir = glm::normalize(lightPos - Info.intersectionPos);
 
 		//look for shadows and return shadow colour
-		glm::vec3 shadowColour = inShadowCheck(Info, lightPoint, 16);
+		glm::vec3 shadowColour = inShadowCheck(Info, lightPos, 1);
 
 		//Bounce multiple rays for reflection
 		glm::vec3 rayDirection = _ray.direction - (2.0f * Info.surfaceNormal * glm::dot(_ray.direction, Info.surfaceNormal));
@@ -76,18 +76,27 @@ finalIntersection RayTracer::findClosestObject(Ray _ray)
 	return finalInfo;
 }
 
-glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, std::shared_ptr<Sphere> _light, int _lightSamples)
+glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, glm::vec3 _light, int _lightSamples)
 {
 	glm::vec3 finalShadeColour(0);
 
 	for (int i = 0; i < _lightSamples; i++)
 	{
-		double theta = ((double)rand() / RAND_MAX) * (2.0 * M_PI);
-		double x = ((double)rand() / RAND_MAX) * 2.0f - 1.0f;
-		double s = sqrt(1.0f - x * x);
-		glm::vec3 ranLightPos{ x, s * cos(theta), s * sin(theta) };
-		
-		glm::vec3 lightDir = glm::normalize(_light->position + ranLightPos - _info.intersectionPos);
+		float u = rand();
+		float x1 = rand();
+		float x2 = rand();
+		float x3 = rand();
+
+		float mag = sqrt(x1 * x1 + x2 * x2 + x3 * x3);
+		x1 /= mag; x2 /= mag; x3 /= mag;
+
+		// Math.cbrt is cube root
+		float c = cbrt(u);
+
+		glm::vec3 lightPos = { x1 * c, x2 * c, x3 * c };
+
+
+		glm::vec3 lightDir = glm::normalize(lightPos - _info.intersectionPos);
 		Ray ray = Ray(_info.intersectionPos, lightDir);
 
 		for (int i = 0; i < m_objsInScene.size(); i++)

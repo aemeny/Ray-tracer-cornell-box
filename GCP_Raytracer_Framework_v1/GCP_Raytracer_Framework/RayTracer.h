@@ -12,7 +12,7 @@ private:
 
 	finalIntersection findClosestObject(Ray _ray);
 
-	glm::vec3 inShadowCheck(finalIntersection _info, std::shared_ptr<Sphere> _light, int _lightSamples);
+	glm::vec3 inShadowCheck(finalIntersection _info, glm::vec3 _light, int _lightSamples);
 
 	std::shared_ptr<Sphere> lightPoint;
 public:
