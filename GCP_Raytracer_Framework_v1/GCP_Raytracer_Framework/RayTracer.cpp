@@ -14,7 +14,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, bool _firstRun)
 		glm::vec3 lightDir = glm::normalize(lightPos - Info.intersectionPos);
 
 		//look for shadows and return shadow colour
-		glm::vec3 shadowColour = inShadowCheck(Info, lightPos, 16);
+		glm::vec3 shadowColour = inShadowCheck(Info, lightPos, 50);
 
 		//Bounce multiple rays for reflection
 		glm::vec3 rayDirection = _ray.direction - (2.0f * Info.surfaceNormal * glm::dot(_ray.direction, Info.surfaceNormal));
@@ -82,13 +82,13 @@ glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, glm::vec3 _light, in
 
 	for (int i = 0; i < _lightSamples; i++)
 	{
-		float u = rand();
-		float v = rand();
-		float theta = 2 * M_PI * u;
-		float phi = acos(2 * v - 1);
-		float x = _light.x + (0.5f * sin(phi) * cos(theta));
-		float y = _light.y + (0.5f * sin(phi) * sin(theta));
-		float z = _light.z + (0.5f * cos(phi));
+		double u = ((double)rand() / (RAND_MAX));
+		double v = ((double)rand() / (RAND_MAX));
+		double theta = 2 * M_PI * u;
+		double phi = acos(2 * v - 1);
+		double x = _light.x + (0.5f * sin(phi) * cos(theta));
+		double y = _light.y + (0.5f * sin(phi) * sin(theta));
+		double z = _light.z + (0.5f * cos(phi));
 
 		glm::vec3 lightPos = { x, y, z };
 

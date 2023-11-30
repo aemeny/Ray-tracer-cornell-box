@@ -27,19 +27,19 @@ int Program::init()
 	//Shiny defualt value
 	float shiny = 0.9f;
 
-	glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -20.0f);
+	glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -18.0f);
 	glm::vec3 colour = glm::vec3(1.0f, 1.0f, 1.0f);
 	rayTracer.addObject<Sphere>(pos, colour, shiny, radius);
 
-	pos = glm::vec3(-2.0f, -3.0f, -20.0f);
+	pos = glm::vec3(-2.0f, -3.0f, -18.0f);
 	colour = glm::vec3(0.0f, 0.0f, 1.0f);
 	rayTracer.addObject<Sphere>(pos, colour, shiny, radius);
 
-	pos = glm::vec3(3.0f, 3.0f, -20.0f);
+	pos = glm::vec3(3.0f, 3.0f, -18.0f);
 	colour = glm::vec3(1.0f, 0.0f, 0.0f);
 	rayTracer.addObject<Sphere>(pos, colour, shiny, radius);
 
-	pos = glm::vec3(1.3f, -0.7f, -11.0f);
+	pos = glm::vec3(1.3f, -0.7f, -10.0f);
 	colour = glm::vec3(0.0f, 1.0f, 0.0f);
 	rayTracer.addObject<Sphere>(pos, colour, shiny, radius - 0.5f);
 
@@ -96,7 +96,7 @@ void Program::runProgram()
 						Ray ray = camera->getRay(pos);
 
 						//On intersect add colour for antialiasing
-						finalColour += rayTracer.traceRay(ray, 1, true);
+						finalColour += rayTracer.traceRay(ray, 3, true);
 					}
 					//Decrease final colour to an adverage of area
 					finalColour /= sampleSize;
