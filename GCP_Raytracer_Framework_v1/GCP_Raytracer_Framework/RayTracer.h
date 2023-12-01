@@ -12,9 +12,8 @@ private:
 
 	finalIntersection findClosestObject(Ray _ray);
 
-	glm::vec3 inShadowCheck(finalIntersection _info, glm::vec3 _light, int _lightSamples);
+	glm::vec3 inShadowCheck(finalIntersection _info, glm::vec3 _lightPos, int _lightSamples);
 
-	std::shared_ptr<Sphere> lightPoint;
 public:
 	glm::vec3 traceRay(Ray _ray, int _numRay, bool _firstRun);
 

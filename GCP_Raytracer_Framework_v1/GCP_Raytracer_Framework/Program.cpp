@@ -25,7 +25,7 @@ int Program::init()
 	float radius = 1.5f;
 
 	//Shiny defualt value
-	float shiny = 0.9f;
+	float shiny = 50.0f;
 
 	glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -18.0f);
 	glm::vec3 colour = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -46,27 +46,32 @@ int Program::init()
 	pos = glm::vec3(0.0f, 0.0f, -25.0f);
 	colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 norm = glm::vec3(0.0f, 0.0f, 1.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
+
+	pos = glm::vec3(0.0f, 0.0f, 5.0f);
+	colour = glm::vec3(0.0f, 0.0f, 0.0f);
+	norm = glm::vec3(0.0f, 0.0f, -1.0f);
+	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
 	
 	pos = glm::vec3(0.0f, 8.0f, 0.0f);
 	colour = glm::vec3(0.8f, 0.0f, 0.8f);
 	norm = glm::vec3(0.0f, -1.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
 
 	pos = glm::vec3(-8.0f, 0.0f, 0.0f);
 	colour = glm::vec3(0.8f, 0.8f, 0.0f);
 	norm = glm::vec3(1.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
 
 	pos = glm::vec3(8.0f, 0.0f, 0.0f);
 	colour = glm::vec3(0.0f, 0.8f, 0.8f);
 	norm = glm::vec3(-1.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
 
 	pos = glm::vec3(0.0f, -8.0f, 0.0f);
 	colour = glm::vec3(0.0f, 0.8f, 0.0f);
 	norm = glm::vec3(0.0f, 1.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
 
 
 	camera = std::make_shared<Camera>(winSize.y, winSize.x, 50);
