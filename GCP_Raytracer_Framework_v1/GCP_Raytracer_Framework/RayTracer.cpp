@@ -101,14 +101,6 @@ glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, std::list <glm::vec3
 
 		for(glm::vec3 j : _lightPos)
 		{
-			/*float u = ((float)rand() / (RAND_MAX));
-			float v = ((float)rand() / (RAND_MAX));
-			float theta = 2 * M_PI * u;
-			float phi = acos(2 * v - 1);
-			float x = _lightPos.x + (0.5f * sin(phi) * cos(theta));
-			float y = _lightPos.y + (0.5f * sin(phi) * sin(theta));
-			float z = _lightPos.z + (0.5f * cos(phi));*/
-
 			float x = j.x + xRand;
 			float y = j.y + yRand;
 
@@ -128,6 +120,7 @@ glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, std::list <glm::vec3
 				if (info.hasIntersected)
 				{
 					finalShadeColour -= finalShadePercent;
+					break;
 				}
 			}
 		}

@@ -10,7 +10,7 @@ Program::~Program() {}
 int Program::init()
 {
 	// Set window size
-	winSize = glm::ivec2(1000, 1000);
+	winSize = glm::ivec2(1200, 1200);
 
 	// Initialises SDL and OpenGL and sets up a framebuffer
 	if (!_myFramework.Init(winSize))
@@ -19,7 +19,7 @@ int Program::init()
 	}
 
 	//Samples for antialiasing
-	sampleSize = 30;
+	sampleSize = 100;
 
 	//Sphere default radius
 	float radius = 1.5f;
