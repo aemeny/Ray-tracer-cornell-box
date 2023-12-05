@@ -1,4 +1,5 @@
 #pragma once
+#include<list>
 #include "Sphere.h"
 #include "Plane.h"
 #include "Camera.h"
@@ -12,7 +13,7 @@ private:
 
 	finalIntersection findClosestObject(Ray _ray);
 
-	glm::vec3 inShadowCheck(finalIntersection _info, glm::vec3 _lightPos, int _lightSamples);
+	glm::vec3 inShadowCheck(finalIntersection _info, std::list<glm::vec3> _lightPos, int _lightSamples);
 
 public:
 	glm::vec3 traceRay(Ray _ray, int _numRay, bool _firstRun);

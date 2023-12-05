@@ -10,7 +10,7 @@ Program::~Program() {}
 int Program::init()
 {
 	// Set window size
-	winSize = glm::ivec2(900, 900);
+	winSize = glm::ivec2(1000, 1000);
 
 	// Initialises SDL and OpenGL and sets up a framebuffer
 	if (!_myFramework.Init(winSize))
@@ -19,13 +19,14 @@ int Program::init()
 	}
 
 	//Samples for antialiasing
-	sampleSize = 10;
+	sampleSize = 30;
 
 	//Sphere default radius
 	float radius = 1.5f;
 
 	//Shiny defualt value
-	float shiny = 50.0f;
+	float shiny = 30.0f;
+	float shiny2 = 100.0f;
 
 	glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -18.0f);
 	glm::vec3 colour = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -46,35 +47,35 @@ int Program::init()
 	pos = glm::vec3(0.0f, 0.0f, -25.0f);
 	colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 norm = glm::vec3(0.0f, 0.0f, 1.0f);
-	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, norm);
 
 	pos = glm::vec3(0.0f, 0.0f, 5.0f);
 	colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	norm = glm::vec3(0.0f, 0.0f, -1.0f);
-	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, norm);
 	
 	pos = glm::vec3(0.0f, 8.0f, 0.0f);
 	colour = glm::vec3(0.8f, 0.0f, 0.8f);
 	norm = glm::vec3(0.0f, -1.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, norm);
 
 	pos = glm::vec3(-8.0f, 0.0f, 0.0f);
 	colour = glm::vec3(0.8f, 0.8f, 0.0f);
 	norm = glm::vec3(1.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, norm);
 
 	pos = glm::vec3(8.0f, 0.0f, 0.0f);
 	colour = glm::vec3(0.0f, 0.8f, 0.8f);
 	norm = glm::vec3(-1.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, norm);
 
 	pos = glm::vec3(0.0f, -8.0f, 0.0f);
 	colour = glm::vec3(0.0f, 0.8f, 0.0f);
 	norm = glm::vec3(0.0f, 1.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, 100.0f, NULL, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, norm);
 
 
-	camera = std::make_shared<Camera>(winSize.y, winSize.x, 50);
+	camera = std::make_shared<Camera>(winSize.y, winSize.x, 60);
 }
 
 void Program::runProgram()
@@ -112,7 +113,7 @@ void Program::runProgram()
 		};
 
 
-	std::thread threads[20];
+	std::thread threads[22];
 
 	int xPos = 0;
 	int yPos = 0;
