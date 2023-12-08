@@ -2,13 +2,14 @@
 
 Sphere::~Sphere() {}
 
-void Sphere::init(glm::vec3 _position, glm::vec3 _colour, float _shiny, float _radius, glm::vec3 _normal)
+void Sphere::init(glm::vec3 _position, glm::vec3 _colour, float _shiny, float _radius, glm::vec3 _normal, float _reflectivity)
 {
 	position = _position;
 	colour = _colour;
 	shiny = _shiny;
 	radius = _radius;
 	normal = _normal; 
+	reflectivity = _reflectivity;
 }
 
 finalIntersection Sphere::rayIntersect(Ray _ray)

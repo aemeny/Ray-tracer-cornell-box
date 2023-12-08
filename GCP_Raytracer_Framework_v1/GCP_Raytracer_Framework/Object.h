@@ -13,7 +13,7 @@ struct Object
 {
 public:
 
-	virtual void init(glm::vec3 _pos, glm::vec3 _col, float _shiny, float _radius, glm::vec3 _norm);
+	virtual void init(glm::vec3 _pos, glm::vec3 _col, float _shiny, float _radius, glm::vec3 _norm, float _reflectivity);
 	virtual finalIntersection rayIntersect(Ray _ray);
 
 	glm::vec3 position;
@@ -21,5 +21,6 @@ public:
 	float shiny;
 	float radius;
 	glm::vec3 normal;
+	float reflectivity;
 };
 
