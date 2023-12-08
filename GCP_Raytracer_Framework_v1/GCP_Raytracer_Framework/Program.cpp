@@ -9,7 +9,7 @@ Program::~Program() {}
 int Program::init()
 {
 	// Set window size
-	winSize = glm::ivec2(1200, 1200);
+	winSize = glm::ivec2(800, 800);
 
 	// Initialises SDL and OpenGL and sets up a framebuffer
 	if (!_myFramework.Init(winSize))
@@ -24,7 +24,7 @@ int Program::init()
 	xPos = 0;
 
 	//Samples for antialiasing
-	sampleSize = 50;
+	sampleSize = 10;
 
 	//Sphere default radius
 	float radius = 1.5f;
@@ -148,7 +148,7 @@ void Program::assignThreadTask()
 			Ray ray = camera->getRay(pos);
 
 			//On intersect add colour for antialiasing
-			finalColour += rayTracer.traceRay(ray, 3, 50, true);
+			finalColour += rayTracer.traceRay(ray, 3, 5, true);
 		}
 		//Decrease final colour to an adverage of area
 		finalColour /= sampleSize;
