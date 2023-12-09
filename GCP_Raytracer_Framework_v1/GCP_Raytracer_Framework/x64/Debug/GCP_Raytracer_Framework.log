@@ -1,38 +1,50 @@
-﻿  Program.cpp
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(21,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(134,16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\xutility(275,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+﻿  Camera.cpp
+  GCP_GFX_Framework.cpp
+  Main.cpp
+  Object.cpp
+  Plane.cpp
+  Program.cpp
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(21,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(134,16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(231,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
               _Ty=int
           ]
-C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(1983): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,T&,T&,int>(_Ty &,T &,T &,int &&) noexcept(false)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(2023,1): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,T&,T&,int>(_Ty &,T &,T &,int &&) noexcept(false)' being compiled
           with
           [
               _Ty=Camera,
               T=int
           ]
-C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(2663): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(2703,36): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
           with
           [
               T=int,
               _Ty=int
           ]
-C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(2664,20): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\memory(2704,20): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
           with
           [
               T=int,
               _Ty=int
           ]
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(94,60): message : see reference to function template instantiation 'std::shared_ptr<Camera> std::make_shared<Camera,T&,T&,int>(T &,T &,int &&)' being compiled
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(94,60): message : see reference to function template instantiation 'std::shared_ptr<Camera> std::make_shared<Camera,T&,T&,int>(T &,T &,int &&)' being compiled
           with
           [
               T=int
           ]
-C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\xutility(275,77): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(231,77): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=int
           ]
-\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(95): warning C4715: 'Program::init': not all control paths return a value
-  GCP_Raytracer_Framework.vcxproj -> \\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe
+  Ray.cpp
+  RayTracer.cpp
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(118,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Sphere.cpp
+  ThreadPool.cpp
+  Generating Code...
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(95): warning C4715: 'Program::init': not all control paths return a value
+  glew.c
+  GCP_Raytracer_Framework.vcxproj -> C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Debug\GCP_Raytracer_Framework.exe
