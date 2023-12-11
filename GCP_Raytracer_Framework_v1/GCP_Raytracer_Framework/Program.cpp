@@ -9,7 +9,7 @@ Program::~Program() {}
 int Program::init()
 {
 	// Set window size
-	winSize = glm::ivec2(900, 900);
+	winSize = glm::ivec2(470, 470);
 
 	// Initialises SDL and OpenGL and sets up a framebuffer
 	if (!_myFramework.Init(winSize))
@@ -24,7 +24,7 @@ int Program::init()
 	xPos = 0;
 
 	//Samples for antialiasing
-	sampleSize = 40;
+	sampleSize = 30;
 
 	//Sphere default radius
 	float radius = 1.7f;
@@ -38,7 +38,7 @@ int Program::init()
 	float shiny = 30.0f; //Sphere
 	float shiny2 = 300.0f; //Wall
 
-	glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -18.0f);
+	/*glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -18.0f);
 	glm::vec3 colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	rayTracer.addObject<Sphere>(pos, colour, 100.0f, radius, reflectivity3);
 
@@ -52,17 +52,21 @@ int Program::init()
 
 	pos = glm::vec3(1.3f, -0.7f, -10.0f);
 	colour = glm::vec3(0.0f, 0.7f, 0.0f);
-	rayTracer.addObject<Sphere>(pos, colour, shiny * 2.0f, radius - 0.5f, reflectivity);
+	rayTracer.addObject<Sphere>(pos, colour, shiny * 2.0f, radius - 0.5f, reflectivity);*/
+
+	glm::vec3 pos = glm::vec3(0.0f, 4.25f, -26.0f);
+	glm::vec3 colour = glm::vec3(0.7f, 0.7f, 0.7f);
+	rayTracer.addObject<Sphere>(pos, colour, shiny2, 3.75f, reflectivity2);
 
 	//BACK WALL
-	pos = glm::vec3(0.0f, 0.0f, -25.0f);
-	colour = glm::vec3(0.7f, 0.7f, 0.7f);
+	pos = glm::vec3(0.0f, 0.0f, -32.0f);
+	colour = glm::vec3(0.1f, 0.1f, 0.6f);
 	glm::vec3 norm = glm::vec3(0.0f, 0.0f, 1.0f);
 	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
 	//FRONT WALL
 	pos = glm::vec3(0.0f, 0.0f, 5.0f);
-	colour = glm::vec3(0.7f, 0.7f, 0.7f);
+	colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	norm = glm::vec3(0.0f, 0.0f, -1.0f);
 	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
@@ -91,7 +95,7 @@ int Program::init()
 	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
 
-	camera = std::make_shared<Camera>(winSize.y, winSize.x, 60);
+	camera = std::make_shared<Camera>(winSize.y, winSize.x, 45);
 }
 
 void Program::runProgram()
@@ -148,7 +152,7 @@ void Program::assignThreadTask()
 			Ray ray = camera->getRay(pos);
 
 			//On intersect add colour for antialiasing
-			finalColour += rayTracer.traceRay(ray, 2, 80, true); //ray to pass, numRays, monteCarloItr, firstRun
+			finalColour += rayTracer.traceRay(ray, 1, 50, true); //ray to pass, numRays, monteCarloItr, firstRun
 		}
 		//Decrease final colour to an adverage of area
 		finalColour /= sampleSize;
