@@ -2,10 +2,11 @@
 
 Sphere::~Sphere() {}
 
-void Sphere::init(glm::vec3 _position, glm::vec3 _colour, float _shiny, float _radius, glm::vec3 _normal, float _reflectivity)
+void Sphere::init(glm::vec3 _position, glm::vec3 _colour, glm::vec3 _colour2, float _shiny, float _radius, glm::vec3 _normal, float _reflectivity)
 {
 	position = _position;
 	colour = _colour;
+	colour2 = _colour2;
 	shiny = _shiny;
 	radius = _radius;
 	normal = _normal; 

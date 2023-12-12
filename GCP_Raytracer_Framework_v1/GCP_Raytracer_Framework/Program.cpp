@@ -9,7 +9,7 @@ Program::~Program() {}
 int Program::init()
 {
 	// Set window size
-	winSize = glm::ivec2(470, 470);
+	winSize = glm::ivec2(950, 950);
 
 	// Initialises SDL and OpenGL and sets up a framebuffer
 	if (!_myFramework.Init(winSize))
@@ -24,7 +24,7 @@ int Program::init()
 	xPos = 0;
 
 	//Samples for antialiasing
-	sampleSize = 30;
+	sampleSize = 60;
 
 	//Sphere default radius
 	float radius = 1.7f;
@@ -54,45 +54,46 @@ int Program::init()
 	colour = glm::vec3(0.0f, 0.7f, 0.0f);
 	rayTracer.addObject<Sphere>(pos, colour, shiny * 2.0f, radius - 0.5f, reflectivity);*/
 
-	glm::vec3 pos = glm::vec3(0.0f, 4.25f, -26.0f);
+	glm::vec3 pos = glm::vec3(0.0f, 4.75f, -24.0f);
 	glm::vec3 colour = glm::vec3(0.7f, 0.7f, 0.7f);
-	rayTracer.addObject<Sphere>(pos, colour, shiny2, 3.75f, reflectivity2);
+	rayTracer.addObject<Sphere>(pos, colour, glm::vec3(NULL), shiny2, 3.25f, reflectivity2);
 
 	//BACK WALL
 	pos = glm::vec3(0.0f, 0.0f, -32.0f);
-	colour = glm::vec3(0.1f, 0.1f, 0.6f);
+	colour = glm::vec3(0.2f, 0.2f, 0.7f);
 	glm::vec3 norm = glm::vec3(0.0f, 0.0f, 1.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity, norm);
 
 	//FRONT WALL
 	pos = glm::vec3(0.0f, 0.0f, 5.0f);
 	colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	norm = glm::vec3(0.0f, 0.0f, -1.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
 
 	//FLOOR
 	pos = glm::vec3(0.0f, 8.0f, 0.0f);
-	colour = glm::vec3(0.7f, 0.7f, 0.7f);
+	colour = glm::vec3(0.2f, 0.7f, 0.2f);
+	glm::vec3 colour2 = glm::vec3(0.7f, 0.2f, 0.2f);
 	norm = glm::vec3(0.0f, -1.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, colour2, shiny2, NULL, reflectivity2, norm);
 
 	//LEFT WALL
 	pos = glm::vec3(-8.0f, 0.0f, 0.0f);
-	colour = glm::vec3(0.7f, 0.0f, 0.0f);
+	colour = glm::vec3(0.7f, 0.2f, 0.2f);
 	norm = glm::vec3(1.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
 
 	//RIGHT WALL
 	pos = glm::vec3(8.0f, 0.0f, 0.0f);
-	colour = glm::vec3(0.0f, 0.7f, 0.0f);
+	colour = glm::vec3(0.2f, 0.7f, 0.2f);
 	norm = glm::vec3(-1.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
 
 	//ROOF
 	pos = glm::vec3(0.0f, -8.0f, 0.0f);
-	colour = glm::vec3(0.8f, 0.8f, 0.8f);
+	colour = glm::vec3(0.7f, 0.7f, 0.7f);
 	norm = glm::vec3(0.0f, 1.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
 
 
 	camera = std::make_shared<Camera>(winSize.y, winSize.x, 45);
@@ -152,7 +153,7 @@ void Program::assignThreadTask()
 			Ray ray = camera->getRay(pos);
 
 			//On intersect add colour for antialiasing
-			finalColour += rayTracer.traceRay(ray, 1, 50, true); //ray to pass, numRays, monteCarloItr, firstRun
+			finalColour += rayTracer.traceRay(ray, 2, 50, true); //ray to pass, numRays, monteCarloItr, firstRun
 		}
 		//Decrease final colour to an adverage of area
 		finalColour /= sampleSize;

@@ -12,12 +12,12 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, int _globalIllItr, bool _fi
 		glm::vec3 finalShade{ 0 }; 
 		glm::vec3 bounceColour{ 0 };
 		glm::vec3 diffuse{ 1.0f };
-		std::list<glm::vec3> lightPosList = { {1.5f, -7.0f, -27.5f}, {-1.5f, -7.0f, -27.5f}, {1.5f, -7.0f, -23.5f}, {-1.5f, -7.0f, -23.5f} };
+		std::list<glm::vec3> lightPosList = { {0.0f, -7.0f, -25.0f}, {0.0f, 0.0f, 0.0f} };
 		glm::vec3 globalIllCol{ 0 };
 		glm::vec3 globalIllSpecCol{ 0 };
 		
 		//look for shadows and return shadow colour
-		glm::vec3 shadowColour = inShadowCheck(Info, lightPosList, 25);
+		glm::vec3 shadowColour = inShadowCheck(Info, lightPosList, 30);
 
 		//Bounce multiple rays for reflection
 		glm::vec3 rayDirection = _ray.direction - (2.0f * Info.surfaceNormal * glm::dot(_ray.direction, Info.surfaceNormal));
@@ -37,7 +37,10 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, int _globalIllItr, bool _fi
 			Ray illuminationRay(Info.intersectionPos, randDir);
 			glm::vec3 illuminationRayCol = traceRay(illuminationRay, 1, 0, false) * 2.0f;
 
-			globalIllCol += glm::max(glm::dot(randDir, Info.surfaceNormal), 0.0f) * illuminationRayCol * (m_objsInScene.at(Info.objIndex)->colour);
+			if(m_objsInScene.at(Info.objIndex)->colour2 != glm::vec3(NULL) && Info.intersectionPos.x < 0)
+				globalIllCol += glm::max(glm::dot(randDir, Info.surfaceNormal), 0.0f) * illuminationRayCol * (m_objsInScene.at(Info.objIndex)->colour2);
+			else
+				globalIllCol += glm::max(glm::dot(randDir, Info.surfaceNormal), 0.0f) * illuminationRayCol * (m_objsInScene.at(Info.objIndex)->colour);
 
 			glm::vec3 halfVec = glm::normalize(randDir - rayDirection);
 			globalIllSpecCol += 0.8f * powf(glm::max(glm::dot(Info.surfaceNormal, halfVec), 0.0f), m_objsInScene.at(Info.objIndex)->shiny);
@@ -115,7 +118,11 @@ finalIntersection RayTracer::findClosestObject(Ray _ray)
 glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, std::list <glm::vec3> _lightPos, int _lightSamples)
 {
 	glm::vec3 finalShadeMultiplier(0);
-	glm::vec3 step = m_objsInScene.at(_info.objIndex)->colour / ((float)_lightSamples * _lightPos.size());
+	glm::vec3 step;
+	if (m_objsInScene.at(_info.objIndex)->colour2 != glm::vec3(NULL) && _info.intersectionPos.x < 0)
+		step = m_objsInScene.at(_info.objIndex)->colour2 / ((float)_lightSamples * _lightPos.size());
+	else
+		step = m_objsInScene.at(_info.objIndex)->colour / ((float)_lightSamples * _lightPos.size());
 
 	for (int i = 0; i < _lightSamples; i++)
 	{
@@ -132,10 +139,7 @@ glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, std::list <glm::vec3
 			glm::vec3 lightDir = glm::normalize(ranLightPos - _info.intersectionPos);
 			Ray ray = Ray(_info.intersectionPos, lightDir);
 
-			float distanceToLight = sqrt(
-				powf(_info.intersectionPos.x - j.x, 2) +
-				powf(_info.intersectionPos.y - j.y, 2) +
-				powf(_info.intersectionPos.z - j.z, 2));
+			float distanceToLight = glm::distance(j, _info.intersectionPos);
 
 			bool intersected = false;
 			for (int i = 0; i < m_objsInScene.size(); i++)
@@ -144,10 +148,7 @@ glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, std::list <glm::vec3
 				{
 					finalIntersection info = m_objsInScene.at(i)->rayIntersect(ray);
 
-					float distanceToObject = sqrt(
-						powf(_info.intersectionPos.x - info.intersectionPos.x, 2) +
-						powf(_info.intersectionPos.y - info.intersectionPos.y, 2) +
-						powf(_info.intersectionPos.z - info.intersectionPos.z, 2));
+					float distanceToObject = glm::distance(_info.intersectionPos, info.intersectionPos);
 
 					if (distanceToObject < distanceToLight)
 					{
