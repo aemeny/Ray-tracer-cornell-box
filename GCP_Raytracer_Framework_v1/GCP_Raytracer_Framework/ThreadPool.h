@@ -17,7 +17,7 @@ struct ThreadPool
 	std::queue<std::function<void()>> jobs; // Queue of jobs for threads to complete
 
 public:
-	void start(); // Initialise threads
+	void start(int _numOfThreads); // Initialise threads
 	void queueJob(const std::function<void()>& job); // Add a new job to the queue
 	void stop(); // Stop all threads / Decontructor
 	bool busy(); // Check if threads are working on a task

@@ -10,7 +10,7 @@ Program::~Program()
 	testResults.close();
 }
 
-void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shadowItr)
+void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shadowItr, int _numOfThreads)
 {
 	// Set window size
 	winSize = glm::ivec2(950, 950);
@@ -21,10 +21,10 @@ void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shad
 		throw std::runtime_error("Failed to initialize window");
 	}
 
-	//set seed for random
+	// Set seed for random
 	srand(time(0));
 
-	//File Init
+	// File Init
 	if (fileDirtyFlag)
 	{
 		// Set flag
@@ -32,33 +32,36 @@ void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shad
 		// Create and open a text file
 		testResults = std::ofstream("TestResults.csv");
 		// Write headers to file
-		testResults << "Sample Size" << ',' << "Number Of Rays" << ',' << "Global Illumination Iterations" << ',' << "Shadow Samples" << ',' << "Time Taken" << std::endl;
+		testResults << "Sample Size" << ',' << "Number Of Rays" << ',' << "Global Illumination Iterations" << ',' 
+			<< "Shadow Samples" << ',' << "Number Of Threads" << ',' << "Time Taken" << std::endl;
 	}
 	
-	//set for thread loop
+	// Set for thread loop
 	xPos = 0;
 
-	//Samples for antialiasing
+	// Samples for antialiasing
 	sampleSize = _sampleSize;
-	//Number of rays for reflections
+	// Number of rays for reflections
 	numbOfRays = _numOfRays;
-	//global illumination iterations
+	// Global illumination iterations
 	globalIllItr = _globalIllItr;
-	//samples for shadow testing iteration
+	// Samples for shadow testing iteration
 	shadowItr = _shadowItr;
+	// Number of threads to assign
+	numOfThreads = _numOfThreads;
 
-	//Sphere default radius
+	// Sphere default radius
 	float radius = 1.7f;
 
-	//Default reflectivity
+	// Default reflectivity
 	float reflectivity = 1.0f; //Sphere
-	float reflectivity3 = 5.0f; //Sphere 2
 	float reflectivity2 = 0.0f; //Wall
 
-	//Shiny defualt value
+	// Shiny defualt value
 	float shiny = 30.0f; //Sphere
 	float shiny2 = 300.0f; //Wall
 
+	// ----- SPHERES NOT CURRENTLY IN USE -----
 	/*glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -18.0f);
 	glm::vec3 colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	rayTracer.addObject<Sphere>(pos, colour, 100.0f, radius, reflectivity3);
@@ -75,42 +78,44 @@ void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shad
 	colour = glm::vec3(0.0f, 0.7f, 0.0f);
 	rayTracer.addObject<Sphere>(pos, colour, shiny * 2.0f, radius - 0.5f, reflectivity);*/
 
+
+	// SPHERE IN SCENE
 	glm::vec3 pos = glm::vec3(0.0f, 4.75f, -24.0f);
 	glm::vec3 colour = glm::vec3(0.7f, 0.7f, 0.7f);
 	rayTracer.addObject<Sphere>(pos, colour, glm::vec3(NULL), shiny2, 3.25f, reflectivity2);
 
-	//BACK WALL
+	// BACK WALL
 	pos = glm::vec3(0.0f, 0.0f, -32.0f);
 	colour = glm::vec3(0.2f, 0.2f, 0.7f);
 	glm::vec3 norm = glm::vec3(0.0f, 0.0f, 1.0f);
 	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity, norm);
 
-	//FRONT WALL
+	// FRONT WALL
 	pos = glm::vec3(0.0f, 0.0f, 5.0f);
 	colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	norm = glm::vec3(0.0f, 0.0f, -1.0f);
 	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
 
-	//FLOOR
+	// FLOOR
 	pos = glm::vec3(0.0f, 8.0f, 0.0f);
 	colour = glm::vec3(0.2f, 0.7f, 0.2f);
 	glm::vec3 colour2 = glm::vec3(0.7f, 0.2f, 0.2f);
 	norm = glm::vec3(0.0f, -1.0f, 0.0f);
 	rayTracer.addObject<Plane>(pos, colour, colour2, shiny2, NULL, reflectivity2, norm);
 
-	//LEFT WALL
+	// LEFT WALL
 	pos = glm::vec3(-8.0f, 0.0f, 0.0f);
 	colour = glm::vec3(0.7f, 0.2f, 0.2f);
 	norm = glm::vec3(1.0f, 0.0f, 0.0f);
 	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
 
-	//RIGHT WALL
+	// RIGHT WALL
 	pos = glm::vec3(8.0f, 0.0f, 0.0f);
 	colour = glm::vec3(0.2f, 0.7f, 0.2f);
 	norm = glm::vec3(-1.0f, 0.0f, 0.0f);
 	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
 
-	//ROOF
+	// ROOF
 	pos = glm::vec3(0.0f, -8.0f, 0.0f);
 	colour = glm::vec3(0.7f, 0.7f, 0.7f);
 	norm = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -125,23 +130,23 @@ void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shad
 
 void Program::runProgram()
 {
-	//Thread pooling
+	// Thread pooling init
 	threadPool = std::make_shared<ThreadPool>();
 
-	//create threads and keep them looping waiting for tasks
-	threadPool->start();
+	// Create threads and keep them looping waiting for tasks
+	threadPool->start(numOfThreads);
 
-	//loop across the screen width giving each thread a new line
+	// Loop across the screen width giving each thread a new line
 	while (xPos <= winSize.x)
 	{
-		//when a thread isn't busy assign a new task
+		// When a thread isn't busy assign a new task
 		if (!threadPool->busy())
 		{
 			threadPool->queueJob([this] { this->assignThreadTask(); });
 		}
 	}
 
-	//scene is loaded so terminate all threads
+	// Scene is loaded so terminate all threads
 	threadPool->stop();
 
 
@@ -150,13 +155,13 @@ void Program::runProgram()
 	// Pushes the framebuffer to OpenGL and renders to screen
 	// Also contains an event loop that keeps the window going until it's closed
 	_myFramework.Show();
-	//clean window for next test
+	// Clean window for next test
 	_myFramework.~GCP_Framework();
 }
 
 void Program::assignThreadTask()
 {
-	//How many samples for antialiasing
+	// How many samples for antialiasing
 	glm::vec3 finalColour;
 	
 	xPos++;
@@ -166,33 +171,40 @@ void Program::assignThreadTask()
 
 	for (int y = 0; y < winSize.y; y++)
 	{
-		//Resets final colour after pixel is drawn
+		// Resets final colour after pixel is drawn
 		finalColour = { 0.0f, 0.0f, 0.0f };
 
 		for (int s = 0; s < sampleSize; s++)
 		{
-			//Gets a random point between 0 - 1
+			// Gets a random point between 0 - 1
 			float r1 = (float)x + (float)rand() / (float)RAND_MAX;
 			float r2 = (float)y + (float)rand() / (float)RAND_MAX;
 
 			glm::vec2 pos = { r1, r2 };
 			Ray ray = camera->getRay(pos);
 
-			//On intersect add colour for antialiasing
+			// On intersect add colour for antialiasing
 			finalColour += rayTracer.traceRay(ray, numbOfRays, globalIllItr, shadowItr, true); //ray to pass, numRays, monteCarloItr, firstRun
 		}
-		//Decrease final colour to an adverage of area
+		// Decrease final colour to an adverage of area
 		finalColour /= sampleSize;
-		//Draws pixel to screen with final colour
+		// Draws pixel to screen with final colour
 		_myFramework.DrawPixel(glm::ivec2(x, y), finalColour);
 	}
 
-	//print percentage complete as threads finish
+	// Print percentage complete as threads finish
 	std::cout << ((float)x / (float)winSize.x) * 100.0f << "%" << std::endl;
 }
 
 void Program::writeToFile(int _time)
 {
-	// Write test results to file
-	testResults << sampleSize << ',' << numbOfRays << ',' << globalIllItr << ',' << shadowItr << ',' << _time << std::endl;
+	if (numOfThreads == NULL)
+	{
+		// Write test results to file
+		testResults << sampleSize << ',' << numbOfRays << ',' << globalIllItr << ',' << shadowItr << ',' << 12 << ',' << _time << std::endl;
+	}
+	else
+	{
+		testResults << sampleSize << ',' << numbOfRays << ',' << globalIllItr << ',' << shadowItr << ',' << numOfThreads << ',' << _time << std::endl;
+	}
 }

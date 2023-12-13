@@ -1,4 +1,4 @@
-Sample Size,Number Of Rays,Global Illumination Iterations,Shadow Samples,Time Taken
-10,2,10,10,62954
-5,1,5,5,23483
-1,1,1,1,1134
+Sample Size,Number Of Rays,Global Illumination Iterations,Shadow Samples,Number Of Threads,Time Taken
+1,2,1,1,12,1046
+5,2,5,5,12,21875
+10,2,10,10,12,136959

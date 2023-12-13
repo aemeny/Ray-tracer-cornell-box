@@ -7,9 +7,18 @@
 */
 
 // Init threads by adding max amount the system can support and start them in a loop
-void ThreadPool::start()
+void ThreadPool::start(int _numOfThreads)
 {
-    const uint32_t numThreads = std::thread::hardware_concurrency(); // the max number of threads the system supports
+    uint32_t numThreads;
+    if (_numOfThreads == NULL) // If NULL assign max amount
+    {
+        numThreads = std::thread::hardware_concurrency(); // the max number of threads the system supports
+    }
+    else // Add given amount
+    {
+        numThreads = _numOfThreads;
+    }
+
     for (uint32_t i = 0; i < numThreads; ++i) 
     {
         threads.emplace_back(std::thread(&ThreadPool::ThreadLoop, this));

@@ -20,6 +20,7 @@ private:
 	int numbOfRays;
 	int globalIllItr;
 	int shadowItr;
+	int numOfThreads;
 
 	// Distance rendered across screen value
 	int xPos;
@@ -33,7 +34,7 @@ private:
 public:
 	~Program(); // Deconstructor
 
-	void init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shadowItr); // Initialise for changing values and objects in scene
+	void init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shadowItr, int _numOfThreads); // Initialise for changing values and objects in scene
 	void writeToFile(int _time); // Writes time taken to results file using values set for this run
 };
 
