@@ -1,7 +1,9 @@
 ﻿  Main.cpp
+  Object.cpp
+  Plane.cpp
   Program.cpp
 C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(21,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(138,16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(139,16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xutility(231,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
@@ -25,7 +27,7 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.3193
               T=int,
               _Ty=int
           ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(98,60): message : see reference to function template instantiation 'std::shared_ptr<Camera> std::make_shared<Camera,T&,T&,int>(T &,T &,int &&)' being compiled
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(99,60): message : see reference to function template instantiation 'std::shared_ptr<Camera> std::make_shared<Camera,T&,T&,int>(T &,T &,int &&)' being compiled
           with
           [
               T=int
@@ -36,6 +38,7 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.3193
               T=int
           ]
   RayTracer.cpp
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(175,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(176,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Sphere.cpp
   Generating Code...
 C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp : fatal  error C1090: PDB API call failed, error code '3': C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\x64\Debug\vc143.pdb

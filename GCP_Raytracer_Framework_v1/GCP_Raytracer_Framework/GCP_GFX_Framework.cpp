@@ -434,6 +434,34 @@ void GCP_Framework::DrawPixel(glm::ivec2 pixelPosition, glm::vec3 pixelColour)
 	_mainBuffer->DrawPixel(pixelPosition, pixelColour);
 }
 
+void GCP_Framework::Show()
+{
+	// sanity check that Init() has been called
+	assert(_mainBuffer != nullptr);
+
+	// Show
+
+		// Specify the colour to clear the framebuffer to
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	// This writes the above colour to the colour part of the framebuffer
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// Send offline framebuffer to the OpenGL texture
+	_mainBuffer->UpdateGL();
+
+	// Binds OpenGL Texture
+	glActiveTexture(GL_TEXTURE0);
+	_mainBuffer->BindGLTex();
+
+	// Call our drawing function to draw that triangle!
+	DrawVAOTris(_triangleVAO, 6, _shaderProgram);
+
+
+	// This tells the renderer to actually show its contents to the screen
+	SDL_GL_SwapWindow(_SDLwindow);
+}
+
+
 void GCP_Framework::ShowAndHold()
 {
 	// sanity check that Init() has been called
@@ -514,6 +542,11 @@ GCP_Framework::~GCP_Framework()
 {
 	delete _mainBuffer;
 
+	// Cleanup
+
+	SDL_GL_DeleteContext(_SDLglcontext);
+	SDL_DestroyWindow(_SDLwindow);
+	SDL_Quit();
 	// TODO: currently doesn't clean up VAO or VBO
 }
 

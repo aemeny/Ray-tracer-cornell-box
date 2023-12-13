@@ -39,6 +39,9 @@ public:
 	// SDL is uninitialised, you are expected to exit the program
 	void ShowAndHold();
 
+	// Sends framebuffer to OpenGL and displays to screen
+	void Show();
+
 protected:
 
 	// Internal variables

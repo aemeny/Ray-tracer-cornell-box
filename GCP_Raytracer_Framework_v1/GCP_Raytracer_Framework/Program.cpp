@@ -1,12 +1,16 @@
 #include "Program.h"
 
 #include <random>
+#include <exception>
+#include <fstream>
 
-Program::Program() {}
+Program::~Program()
+{
+	// Close results file
+	testResults.close();
+}
 
-Program::~Program() {}
-
-int Program::init()
+void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shadowItr)
 {
 	// Set window size
 	winSize = glm::ivec2(950, 950);
@@ -14,17 +18,34 @@ int Program::init()
 	// Initialises SDL and OpenGL and sets up a framebuffer
 	if (!_myFramework.Init(winSize))
 	{
-		return -1;
+		throw std::runtime_error("Failed to initialize window");
 	}
 
 	//set seed for random
 	srand(time(0));
 
+	//File Init
+	if (fileDirtyFlag)
+	{
+		// Set flag
+		fileDirtyFlag = false;
+		// Create and open a text file
+		testResults = std::ofstream("TestResults.csv");
+		// Write headers to file
+		testResults << "Sample Size" << ',' << "Number Of Rays" << ',' << "Global Illumination Iterations" << ',' << "Shadow Samples" << ',' << "Time Taken" << std::endl;
+	}
+	
 	//set for thread loop
 	xPos = 0;
 
 	//Samples for antialiasing
-	sampleSize = 60;
+	sampleSize = _sampleSize;
+	//Number of rays for reflections
+	numbOfRays = _numOfRays;
+	//global illumination iterations
+	globalIllItr = _globalIllItr;
+	//samples for shadow testing iteration
+	shadowItr = _shadowItr;
 
 	//Sphere default radius
 	float radius = 1.7f;
@@ -97,6 +118,9 @@ int Program::init()
 
 
 	camera = std::make_shared<Camera>(winSize.y, winSize.x, 45);
+
+	// After values are initialised run program
+	runProgram();
 }
 
 void Program::runProgram()
@@ -121,11 +145,13 @@ void Program::runProgram()
 	threadPool->stop();
 
 
-	std::cout << "DONE";
+	std::cout << "DONE\n";
 
 	// Pushes the framebuffer to OpenGL and renders to screen
 	// Also contains an event loop that keeps the window going until it's closed
-	_myFramework.ShowAndHold();
+	_myFramework.Show();
+	//clean window for next test
+	_myFramework.~GCP_Framework();
 }
 
 void Program::assignThreadTask()
@@ -153,7 +179,7 @@ void Program::assignThreadTask()
 			Ray ray = camera->getRay(pos);
 
 			//On intersect add colour for antialiasing
-			finalColour += rayTracer.traceRay(ray, 2, 50, true); //ray to pass, numRays, monteCarloItr, firstRun
+			finalColour += rayTracer.traceRay(ray, numbOfRays, globalIllItr, shadowItr, true); //ray to pass, numRays, monteCarloItr, firstRun
 		}
 		//Decrease final colour to an adverage of area
 		finalColour /= sampleSize;
@@ -163,4 +189,10 @@ void Program::assignThreadTask()
 
 	//print percentage complete as threads finish
 	std::cout << ((float)x / (float)winSize.x) * 100.0f << "%" << std::endl;
+}
+
+void Program::writeToFile(int _time)
+{
+	// Write test results to file
+	testResults << sampleSize << ',' << numbOfRays << ',' << globalIllItr << ',' << shadowItr << ',' << _time << std::endl;
 }

@@ -2,12 +2,33 @@
 
 int main(int argc, char* argv[])
 {
-	Program program = Program();
+	// Init program
+	Program program;
 
-	if (program.init() == -1)
-		return -1;
+	// Get time at start
+	std::chrono::steady_clock::time_point time1 = std::chrono::high_resolution_clock::now();
 
-	program.runProgram();
+	// Parameter values: SampleSize, NumOfRays, GlobalIllItr, ShadowItr
+	program.init(10, 2, 10, 10); 
+	
+	// Get time after program has finished and calculate time taken
+	std::chrono::steady_clock::time_point time2 = std::chrono::high_resolution_clock::now();
+
+	// Write data collected to file
+	program.writeToFile(std::chrono::duration_cast<std::chrono::milliseconds>(time2 - time1).count());
+
+
+
+	// --- TESTS WITH DIFFERENT SET VALUES ---
+	time1 = std::chrono::high_resolution_clock::now();
+	program.init(5, 1, 5, 5);
+	time2 = std::chrono::high_resolution_clock::now();
+	program.writeToFile(std::chrono::duration_cast<std::chrono::milliseconds>(time2 - time1).count());
+
+	time1 = std::chrono::high_resolution_clock::now();
+	program.init(1, 1, 1, 1);
+	time2 = std::chrono::high_resolution_clock::now();
+	program.writeToFile(std::chrono::duration_cast<std::chrono::milliseconds>(time2 - time1).count());
 
 	return 0;
 }

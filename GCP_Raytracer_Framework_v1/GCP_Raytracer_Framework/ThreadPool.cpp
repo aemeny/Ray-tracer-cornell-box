@@ -6,6 +6,7 @@
     https://stackoverflow.com/questions/15752659/thread-pooling-in-c11
 */
 
+// Init threads by adding max amount the system can support and start them in a loop
 void ThreadPool::start()
 {
     const uint32_t numThreads = std::thread::hardware_concurrency(); // the max number of threads the system supports
@@ -15,6 +16,7 @@ void ThreadPool::start()
     }
 }
 
+// Loop threads while idle and assign tasks from the jobs queue
 void ThreadPool::ThreadLoop()
 {
     while (true) {
@@ -39,16 +41,17 @@ void ThreadPool::ThreadLoop()
     }
 }
 
+// Add passed job to a list and lock / unlock a mutex
 void ThreadPool::queueJob(const std::function<void()>& job)
 {
-    {
-        std::unique_lock<std::mutex> lock(queuedMutex);
+    { // Use of scope to auto deconstruct mutex
+        std::unique_lock<std::mutex> lock(queuedMutex); // Unique lock unlocks mutex on deconstruct
         jobs.push(job);
     }
     mutexCondition.notify_one();
 }
 
-
+// Check if threads are busy doing a task or waiting idle
 bool ThreadPool::busy()
 {
     bool poolbusy;
@@ -59,6 +62,7 @@ bool ThreadPool::busy()
     return poolbusy;
 }
 
+// Deconstructor for threads. join all current threads and clear threads list
 void ThreadPool::stop()
 {
     {
