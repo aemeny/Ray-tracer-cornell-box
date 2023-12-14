@@ -15,13 +15,12 @@ struct Object
 {
 public:
 	// Virtual functions to be overrided by children
-	virtual void init(glm::vec3 _pos, glm::vec3 _col, glm::vec3 _col2, float _shiny, float _radius, glm::vec3 _norm, float _reflectivity);
+	virtual void init(glm::vec3 _pos, glm::vec3 _col, float _shiny, float _radius, glm::vec3 _norm, float _reflectivity);
 	virtual finalIntersection rayIntersect(Ray _ray);
 
 	// Init base values for all objects
 	glm::vec3 position;
 	glm::vec3 colour;
-	glm::vec3 colour2;
 	float shiny;
 	float radius;
 	glm::vec3 normal;

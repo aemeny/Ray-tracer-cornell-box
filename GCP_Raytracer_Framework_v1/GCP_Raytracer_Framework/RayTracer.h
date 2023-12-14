@@ -22,11 +22,11 @@ public:
 	glm::vec3 traceRay(Ray _ray, int _numRay, int _globalIllItr, int _shadowItr, bool _firstRun); // Main function that returns the final colour of a given point in the world
 
 	template <typename T>
-	void addObject(glm::vec3 _pos, glm::vec3 _col, glm::vec3 _col2, float _shiny, float _radius, float _reflectivity, glm::vec3 _norm = glm::vec3(NULL)) // Defualt constructor for objects
+	void addObject(glm::vec3 _pos, glm::vec3 _col, float _shiny, float _radius, float _reflectivity, glm::vec3 _norm = glm::vec3(NULL)) // Defualt constructor for objects
 	{
 		std::shared_ptr<T> rtn = std::make_shared<T>(); // Create shared pointer for object
 
-		rtn->init(_pos, _col, _col2, _shiny, _radius, _norm, _reflectivity); // Use override function to set values for object
+		rtn->init(_pos, _col, _shiny, _radius, _norm, _reflectivity); // Use override function to set values for object
 		
 		m_objsInScene.push_back(rtn); // Add object to the list of objetc in the scene
 	}

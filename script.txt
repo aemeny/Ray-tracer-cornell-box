@@ -1,0 +1,50 @@
+Theory
+
+Parrallel programming
+Parallel computing is the simultaneous use of multiple resources or threads within a computer to solve a problem.
+A problem can be broken into discrete parts to be solved concurrently; Instructions from each part can be executed simultaneously on different cores.
+Mutexs are used to prevent simultaneous editing of the same data, possibly causing a race condition.
+
+Ray tracing
+Ray tracing is a rendering technique that is used to simulate realistic lighting in each scene by creating accurate reflections, 
+refractions, shadows and indirect lighting.
+Ray tracing generates a path from the view of a camera, through the 2D viewing plane into a 3D scene.
+Can be inaccurate from the real world due to computational limits with modern day computers.
+
+
+Design - Aspects used in my code
+
+Multi-bounce reflections
+Reflections can be added to any given surface in the scene from creating a new ray based on the reflective angle. 
+On collision with the next object, the shade can be recalculated and returned to be added onto the original object.
+
+The rayTrace function I created is used to calculate the shade of a given spot on intersection, 
+this function can be run in recursion for each bounce from the reflection.
+
+Multithreading / thread pooling
+Within my code threads can be created based on either user inputted value or based on the maximum the given system supports. 
+Threads are assigned jobs to render one column of the screen at the time, 
+thread pooling means no matter which order they finish their tasks they can take the next column needed to be processed, 
+increasing efficiency compared to assigning certain areas to each thread.
+
+Soft shadows
+I grab points within a sphere from my light sources to randomly sample rays towards the light, 
+this means I can get areas of the shadow that can partly see the light.
+
+Global Illumination
+Using my traceRay function, I return the shade of a random point shot from a sphere's hemisphere in a random direction 
+to return indirect lighting.
+
+Anti-aliasing
+Loop the main rayTracer and with slight variations from the pixel position to smooth out and average out a colour in an area.
+This will remove sharp edges on the edge of objects, and multiple any used techniques through the ray tracer.
+
+
+Analysis
+
+graph 1
+
+
+graph 2
+Graph two shows that a linear increase in the number of threads assigned results in a exponential reduction in computational time, these results could likely be due the use of mutexs 
+within my multi-threading. As it requires a system call that involves a context switch on the operating system, this is inherently a fairly expensive operation.

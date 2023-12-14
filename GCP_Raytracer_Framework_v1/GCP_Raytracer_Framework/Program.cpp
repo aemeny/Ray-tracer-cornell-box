@@ -51,7 +51,7 @@ void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shad
 	numOfThreads = _numOfThreads;
 
 	// Sphere default radius
-	float radius = 1.7f;
+	float radius = 2.2f;
 
 	// Default reflectivity
 	float reflectivity = 1.0f; //Sphere
@@ -59,67 +59,52 @@ void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shad
 
 	// Shiny defualt value
 	float shiny = 30.0f; //Sphere
-	float shiny2 = 300.0f; //Wall
+	float shiny2 = 100.0f; //Wall
 
-	// ----- SPHERES NOT CURRENTLY IN USE -----
-	/*glm::vec3 pos = glm::vec3(-2.0f, 2.0f, -18.0f);
+	// SPHERES IN SCENE
+	glm::vec3 pos = glm::vec3(-2.3f, 5.8f, -25.5f);
 	glm::vec3 colour = glm::vec3(0.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Sphere>(pos, colour, 100.0f, radius, reflectivity3);
+	rayTracer.addObject<Sphere>(pos, colour, shiny, radius, reflectivity2);
 
-	pos = glm::vec3(-2.0f, -3.0f, -18.0f);
-	colour = glm::vec3(0.0f, 0.0f, 0.7f);
-	rayTracer.addObject<Sphere>(pos, colour, shiny, radius, reflectivity);
-
-	pos = glm::vec3(3.0f, 3.0f, -18.0f);
-	colour = glm::vec3(0.7f, 0.0f, 0.0f);
-	rayTracer.addObject<Sphere>(pos, colour, shiny, radius, reflectivity);
-
-	pos = glm::vec3(1.3f, -0.7f, -10.0f);
-	colour = glm::vec3(0.0f, 0.7f, 0.0f);
-	rayTracer.addObject<Sphere>(pos, colour, shiny * 2.0f, radius - 0.5f, reflectivity);*/
-
-
-	// SPHERE IN SCENE
-	glm::vec3 pos = glm::vec3(0.0f, 4.75f, -24.0f);
-	glm::vec3 colour = glm::vec3(0.7f, 0.7f, 0.7f);
-	rayTracer.addObject<Sphere>(pos, colour, glm::vec3(NULL), shiny2, 3.25f, reflectivity2);
+	pos = glm::vec3(2.3f, 5.8f, -23.5f);
+	colour = glm::vec3(0.7f, 0.7f, 0.7f);
+	rayTracer.addObject<Sphere>(pos, colour, shiny2, radius, reflectivity2);
 
 	// BACK WALL
-	pos = glm::vec3(0.0f, 0.0f, -32.0f);
-	colour = glm::vec3(0.2f, 0.2f, 0.7f);
+	pos = glm::vec3(0.0f, 0.0f, -29.5f);
+	colour = glm::vec3(0.7f, 0.7f, 0.7f);
 	glm::vec3 norm = glm::vec3(0.0f, 0.0f, 1.0f);
-	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
 	// FRONT WALL
 	pos = glm::vec3(0.0f, 0.0f, 5.0f);
 	colour = glm::vec3(0.0f, 0.0f, 0.0f);
 	norm = glm::vec3(0.0f, 0.0f, -1.0f);
-	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
 	// FLOOR
 	pos = glm::vec3(0.0f, 8.0f, 0.0f);
-	colour = glm::vec3(0.2f, 0.7f, 0.2f);
-	glm::vec3 colour2 = glm::vec3(0.7f, 0.2f, 0.2f);
+	colour = glm::vec3(0.7f, 0.7f, 0.7f);
 	norm = glm::vec3(0.0f, -1.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, colour2, shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
 	// LEFT WALL
 	pos = glm::vec3(-8.0f, 0.0f, 0.0f);
 	colour = glm::vec3(0.7f, 0.2f, 0.2f);
 	norm = glm::vec3(1.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
 	// RIGHT WALL
 	pos = glm::vec3(8.0f, 0.0f, 0.0f);
-	colour = glm::vec3(0.2f, 0.7f, 0.2f);
+	colour = glm::vec3(0.2f, 0.2f, 0.7f);
 	norm = glm::vec3(-1.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
 	// ROOF
 	pos = glm::vec3(0.0f, -8.0f, 0.0f);
 	colour = glm::vec3(0.7f, 0.7f, 0.7f);
 	norm = glm::vec3(0.0f, 1.0f, 0.0f);
-	rayTracer.addObject<Plane>(pos, colour, glm::vec3(NULL), shiny2, NULL, reflectivity2, norm);
+	rayTracer.addObject<Plane>(pos, colour, shiny2, NULL, reflectivity2, norm);
 
 
 	camera = std::make_shared<Camera>(winSize.y, winSize.x, 45);
@@ -154,7 +139,7 @@ void Program::runProgram()
 
 	// Pushes the framebuffer to OpenGL and renders to screen
 	// Also contains an event loop that keeps the window going until it's closed
-	_myFramework.Show();
+	_myFramework.ShowAndHold();
 	// Clean window for next test
 	_myFramework.~GCP_Framework();
 }

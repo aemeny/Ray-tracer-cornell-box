@@ -1,122 +1,44 @@
-﻿  Main.cpp
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(18,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
+﻿  Program.cpp
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(25,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(155,16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\xutility(275,77): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
           with
           [
-              _Rep=__int64
+              _Ty=int
           ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(27,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(1983): message : see reference to function template instantiation 'void std::_Construct_in_place<_Ty,T&,T&,int>(_Ty &,T &,T &,int &&) noexcept(false)' being compiled
           with
           [
-              _Rep=__int64
+              _Ty=Camera,
+              T=int
           ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(32,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(2663): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
           with
           [
-              _Rep=__int64
+              T=int,
+              _Ty=int
           ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(37,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\memory(2664,20): message : see reference to function template instantiation 'std::_Ref_count_obj2<Camera>::_Ref_count_obj2<T&,T&,_Ty>(T &,T &,_Ty &&)' being compiled
           with
           [
-              _Rep=__int64
+              T=int,
+              _Ty=int
           ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(42,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Program.cpp(110,60): message : see reference to function template instantiation 'std::shared_ptr<Camera> std::make_shared<Camera,T&,T&,int>(T &,T &,int &&)' being compiled
           with
           [
-              _Rep=__int64
+              T=int
           ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(47,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.35.32215\include\xutility(275,77): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
-              _Rep=__int64
+              T=int
           ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(52,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(58,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(63,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(68,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(73,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(79,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(84,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(89,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(94,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(100,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(105,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(110,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(115,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(121,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(126,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(131,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
-C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\Main.cpp(136,96): warning C4244: 'argument': conversion from '_Rep' to 'int', possible loss of data
-          with
-          [
-              _Rep=__int64
-          ]
+  RayTracer.cpp
+\\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\GCP_Raytracer_Framework\RayTracer.cpp(189,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Generating code
-  1 of 1207 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  4 of 1206 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    10 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  GCP_Raytracer_Framework.vcxproj -> C:\Users\alexe\OneDrive\Documents\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Release\GCP_Raytracer_Framework.exe
+  GCP_Raytracer_Framework.vcxproj -> \\bournemouth.ac.uk\data\Student\Home\SciTech\s5415659\GitHub\GraphicsAndComputationalProgramming\GCP_Raytracer_Framework_v1\x64\Release\GCP_Raytracer_Framework.exe

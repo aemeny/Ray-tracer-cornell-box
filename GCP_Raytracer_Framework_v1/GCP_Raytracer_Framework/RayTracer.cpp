@@ -15,7 +15,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, int _globalIllItr, int _sha
 		glm::vec3 finalShade{ 0 }; // Returned colour value
 		glm::vec3 bounceColour{ 0 }; // Colour of bounced rays
 		glm::vec3 diffuse{ 1.0f }; // Diffuse multiplier
-		std::list<glm::vec3> lightPosList = { {0.0f, -7.0f, -25.0f}, {0.0f, 0.0f, 0.0f} }; // List of poistions for multiple light sources 
+		std::list<glm::vec3> lightPosList = { {0.0f, -3.0f, -24.5f}, {0.0f, 0.0f, 0.0f} }; // List of poistions for multiple light sources 
 		glm::vec3 globalIllCol{ 0 }; // Global illumination final colour to be added
 		glm::vec3 globalIllSpecCol{ 0 }; // Global illumuination specular colour
 		
@@ -44,10 +44,7 @@ glm::vec3 RayTracer::traceRay(Ray _ray, int _numRay, int _globalIllItr, int _sha
 			glm::vec3 illuminationRayCol = traceRay(illuminationRay, 1, 0, _shadowItr, false) * 2.0f;
 
 			// Add colour of intersected object with illumination ray
-			if(m_objsInScene.at(Info.objIndex)->colour2 != glm::vec3(NULL) && Info.intersectionPos.x < 0)
-				globalIllCol += glm::max(glm::dot(randDir, Info.surfaceNormal), 0.0f) * illuminationRayCol * (m_objsInScene.at(Info.objIndex)->colour2);
-			else
-				globalIllCol += glm::max(glm::dot(randDir, Info.surfaceNormal), 0.0f) * illuminationRayCol * (m_objsInScene.at(Info.objIndex)->colour);
+			globalIllCol += glm::max(glm::dot(randDir, Info.surfaceNormal), 0.0f) * illuminationRayCol * (m_objsInScene.at(Info.objIndex)->colour);
 
 			glm::vec3 halfVec = glm::normalize(randDir - rayDirection);
 			globalIllSpecCol += 0.8f * powf(glm::max(glm::dot(Info.surfaceNormal, halfVec), 0.0f), m_objsInScene.at(Info.objIndex)->shiny);
@@ -131,11 +128,7 @@ finalIntersection RayTracer::findClosestObject(Ray _ray)
 glm::vec3 RayTracer::inShadowCheck(finalIntersection _info, std::list <glm::vec3> _lightPos, int _lightSamples)
 {
 	glm::vec3 finalShadeMultiplier(0); // Final shade starts at 0 (in complete shadow)
-	glm::vec3 step; // Step set as object colour divided by the amount of shadow sample iterations
-	if (m_objsInScene.at(_info.objIndex)->colour2 != glm::vec3(NULL) && _info.intersectionPos.x < 0)
-		step = m_objsInScene.at(_info.objIndex)->colour2 / ((float)_lightSamples * _lightPos.size());
-	else
-		step = m_objsInScene.at(_info.objIndex)->colour / ((float)_lightSamples * _lightPos.size());
+	glm::vec3 step = m_objsInScene.at(_info.objIndex)->colour / ((float)_lightSamples * _lightPos.size());; // Step set as object colour divided by the amount of shadow sample iterations
 
 	// Loop for ever given sample
 	for (int i = 0; i < _lightSamples; i++)
