@@ -64,7 +64,7 @@ void Program::init(int _sampleSize, int _numOfRays, int _globalIllItr, int _shad
 	// SPHERES IN SCENE
 	glm::vec3 pos = glm::vec3(-2.3f, 5.8f, -25.5f);
 	glm::vec3 colour = glm::vec3(0.0f, 0.0f, 0.0f);
-	rayTracer.addObject<Sphere>(pos, colour, shiny, radius, reflectivity2);
+	rayTracer.addObject<Sphere>(pos, colour, shiny, radius, reflectivity);
 
 	pos = glm::vec3(2.3f, 5.8f, -23.5f);
 	colour = glm::vec3(0.7f, 0.7f, 0.7f);
